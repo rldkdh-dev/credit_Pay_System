@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CashReceiptRead">
+    <typeAlias alias="DataModel" type="mobile.DataModel"/>
+      
+  <select id="IssueListSearch1" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MobileGoodsReadCache"-->
+    <![CDATA[
+      select a.reg_dt as "reg_dt", a.cc_dt as "cc_dt", a.tid as "tid", a.goods_amt as "goods_amt", a.goods_nm as "goods_nm", 
+                 case when length(a.identity) in (10, 11) then 
+                             concat(substr(a.identity, 1, 3), '-', substr(a.identity, 4, length(a.identity)-7), '-', '****')
+                        when length(a.identity) = 13 then
+                             concat(substr(a.identity, 1, 6), '-', substr(a.identity, 7, 1), '******')
+                        when length(a.identity) = 16 then
+                             concat(substr(a.identity, 1, 4), '-', substr(a.identity, 5, 3), '*-****-', substr(a.identity, 13, 4))
+                        else a.identity end as "identity", 
+             a.state_cd as "state_cd", a.state_nm as "state_nm", a.status as "status", a.req_flg as "req_flg", a.org_tid as "org_tid",
+             a.status_nm as "status_nm", a.ord_nm as "ord_nm", a.app_no as "app_no",
+             a.req_flg_nm as "req_flg_nm", a.co_no as "co_no",
+             a.co_nm as "co_nm"
+      from (
+      select a.reg_dt as tr_dt, a.reg_tm as tr_tm, a.reg_dt as reg_dt, a.cc_dt as cc_dt, a.tid as tid, a.goods_amt as goods_amt, a.goods_nm as goods_nm, 
+                 a.identity as identity, a.state_cd as state_cd, case when a.state_cd = '0' then '승인' else '취소' end as state_nm, a.status as status, a.req_flg as req_flg, a.org_tid as org_tid,
+             fn_nm_code1('rcpt_status', a.status) as status_nm, a.ord_nm as ord_nm, a.app_no as app_no,
+             case when a.req_flg = '1' then '소득공제용' else '증빙제출용' end as req_flg_nm, a.co_no as co_no,
+             ifnull(b.co_nm, '') as co_nm
+      from tb_rcpt_trans a
+      left outer join tb_subcash b on a.co_no = b.co_no
+    ]]>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="0"> a.mid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="1"> a.gid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="2"> a.aid = #usr_id:VARCHAR# </isEqual>
+      and a.reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      <isNotEqual prepend="AND" property="stateCd" compareValue="all"> a.state_cd = #stateCd:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="status" compareValue="all"> a.status = #status:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> a.req_flg = #reqFlg:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="coNo" compareValue=""> a.co_no = #coNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="ordNm" compareValue=""> a.ord_nm = #ordNm:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="appNo" compareValue=""> a.app_no = #appNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="tid" compareValue=""> a.tid = #tid:VARCHAR# </isNotEqual>
+      <isNotNull property="frAmt"> 
+              <isNotNull prepend="AND" property="toAmt">
+                a.goods_amt between #frAmt:VARCHAR# and #toAmt:VARCHAR# 
+              </isNotNull>
+            </isNotNull>
+      and a.state_cd = '0'
+      union
+      <![CDATA[
+      select a.cc_dt as tr_dt, a.cc_tm as tr_tm, a.reg_dt as reg_dt, a.cc_dt as cc_dt, a.tid as tid, a.goods_amt as goods_amt, a.goods_nm as goods_nm, 
+                 a.identity as identity, a.state_cd as state_cd, case when a.state_cd = '0' then '승인' else '취소' end as state_nm, a.status as status, a.req_flg as req_flg, a.org_tid as ord_tid,
+             fn_nm_code1('rcpt_status', a.cc_status) as status_nm, a.ord_nm as ord_nm, a.app_no as app_no,
+             case when a.req_flg = '1' then '소득공제용' else '증빙제출용' end as req_flg_nm, a.co_no as co_no,
+             ifnull(b.co_nm, '') as co_nm
+      from tb_rcpt_trans a
+      left outer join tb_subcash b on a.co_no = b.co_no
+    ]]>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="0"> a.mid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="1"> a.gid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="2"> a.aid = #usr_id:VARCHAR# </isEqual>
+      and a.cc_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> a.req_flg = #reqFlg:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="stateCd" compareValue="all"> a.state_cd = #stateCd:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="status" compareValue="all"> a.cc_status = #status:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> a.req_flg = #reqFlg:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="coNo" compareValue=""> a.co_no = #coNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="ordNm" compareValue=""> a.ord_nm = #ordNm:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="appNo" compareValue=""> a.app_no = #appNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="tid" compareValue=""> a.tid = #tid:VARCHAR# </isNotEqual>
+      <isNotNull property="frAmt"> 
+              <isNotNull prepend="AND" property="toAmt">
+                a.goods_amt between #frAmt:VARCHAR# and #toAmt:VARCHAR# 
+              </isNotNull>
+            </isNotNull>
+      and a.state_cd = '1'
+      ) a
+      order by a.tr_dt desc, a.tr_tm desc
+  </select>
+
+  <select id="IssueListSearch2" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MobileGoodsReadCache"-->
+    <![CDATA[
+      select a.reg_dt as "reg_dt", a.cc_dt as "cc_dt", a.tid as "tid", a.goods_amt as "goods_amt", a.goods_nm as "goods_nm", 
+                 case when length(a.identity) in (10, 11) then 
+                             concat(substr(a.identity, 1, 3), '-', substr(a.identity, 4, length(a.identity)-7), '-', '****')
+                        when length(a.identity) = 13 then
+                             concat(substr(a.identity, 1, 6), '-', substr(a.identity, 7, 1), '******')
+                        when length(a.identity) = 16 then
+                             concat(substr(a.identity, 1, 4), '-', substr(a.identity, 5, 3), '*-****-', substr(a.identity, 13, 4))
+                        else a.identity end as "identity", 
+             a.state_cd as "state_cd", a.state_nm as "state_nm", a.status as "status", a.req_flg as "req_flg", a.org_tid as "org_tid",
+             a.status_nm as "status_nm", a.ord_nm as "ord_nm", a.app_no as "app_no",
+             a.req_flg_nm as "req_flg_nm", a.co_no as "co_no",
+             a.co_nm as "co_nm"
+      from (
+      select a.reg_dt as tr_dt, a.reg_tm as tr_tm, a.reg_dt as reg_dt, a.cc_dt as cc_dt, a.tid as tid, a.goods_amt as goods_amt, a.goods_nm as goods_nm, 
+                 a.identity as identity, a.state_cd as state_cd, case when a.state_cd = '0' then '승인' else '취소' end as state_nm, a.status as status, a.req_flg as req_flg, a.org_tid as org_tid,
+             fn_nm_code1('rcpt_status', a.status) as status_nm, a.ord_nm as ord_nm, a.app_no as app_no,
+             case when a.req_flg = '1' then '소득공제용' else '증빙제출용' end as req_flg_nm, a.co_no as co_no,
+             ifnull(b.co_nm, '') as co_nm
+      from tb_rcpt_trans a
+      left outer join tb_subcash b on a.co_no = b.co_no
+    ]]>
+      where a.mid = #mid:VARCHAR#
+      and a.reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      <isNotEqual prepend="AND" property="stateCd" compareValue="all"> a.state_cd = #stateCd:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="status" compareValue="all"> a.status = #status:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> a.req_flg = #reqFlg:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="coNo" compareValue=""> a.co_no = #coNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="ordNm" compareValue=""> a.ord_nm = #ordNm:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="appNo" compareValue=""> a.app_no = #appNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="tid" compareValue=""> a.tid = #tid:VARCHAR# </isNotEqual>
+      <isNotNull property="frAmt"> 
+              <isNotNull prepend="AND" property="toAmt">
+                a.goods_amt between #frAmt:VARCHAR# and #toAmt:VARCHAR# 
+              </isNotNull>
+            </isNotNull>
+      and a.state_cd = '0'
+      union
+      <![CDATA[
+      select a.cc_dt as tr_dt, a.cc_tm as tr_tm, a.reg_dt as reg_dt, a.cc_dt as cc_dt, a.tid as tid, a.goods_amt as goods_amt, a.goods_nm as goods_nm, 
+                 a.identity as identity, a.state_cd as state_cd, case when a.state_cd = '0' then '승인' else '취소' end as state_nm, a.status as status, a.req_flg as req_flg, a.org_tid as ord_tid,
+             fn_nm_code1('rcpt_status', a.cc_status) as status_nm, a.ord_nm as ord_nm, a.app_no as app_no,
+             case when a.req_flg = '1' then '소득공제용' else '증빙제출용' end as req_flg_nm, a.co_no as co_no,
+             ifnull(b.co_nm, '') as co_nm
+      from tb_rcpt_trans a
+      left outer join tb_subcash b on a.co_no = b.co_no
+    ]]>
+      where a.mid = #mid:VARCHAR#
+      and a.cc_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      <isNotEqual prepend="AND" property="stateCd" compareValue="all"> a.state_cd = #stateCd:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="status" compareValue="all"> a.cc_status = #status:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> a.req_flg = #reqFlg:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="coNo" compareValue=""> a.co_no = #coNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="ordNm" compareValue=""> a.ord_nm = #ordNm:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="appNo" compareValue=""> a.app_no = #appNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="tid" compareValue=""> a.tid = #tid:VARCHAR# </isNotEqual>
+      <isNotNull property="frAmt"> 
+              <isNotNull prepend="AND" property="toAmt">
+                a.goods_amt between #frAmt:VARCHAR# and #toAmt:VARCHAR# 
+              </isNotNull>
+            </isNotNull>
+      and a.state_cd = '1'   
+      ) a
+      order by a.tr_dt desc, a.tr_tm desc  
+  </select>
+  
+  <select id="IssueListSearchCnt1" parameterClass="DataModel" resultClass="int"><!-- cacheModel="MobileGoodsReadCache"-->
+    <![CDATA[
+      select sum(a.cnt)
+      from (
+    ]]>
+    <![CDATA[
+      select count(1) cnt
+      from tb_rcpt_trans a
+    ]]>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="0"> a.mid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="1"> a.gid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="2"> a.aid = #usr_id:VARCHAR# </isEqual>
+      and a.reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      <isNotEqual prepend="AND" property="stateCd" compareValue="all"> a.state_cd = #stateCd:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="status" compareValue="all"> a.status = #status:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> a.req_flg = #reqFlg:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="coNo" compareValue=""> a.co_no = #coNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="ordNm" compareValue=""> a.ord_nm = #ordNm:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="appNo" compareValue=""> a.app_no = #appNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="tid" compareValue=""> a.tid = #tid:VARCHAR# </isNotEqual>
+      <isNotNull property="frAmt"> 
+              <isNotNull prepend="AND" property="toAmt">
+                a.goods_amt between #frAmt:VARCHAR# and #toAmt:VARCHAR# 
+              </isNotNull>
+            </isNotNull>
+      and a.state_cd = '0'
+      union all
+    <![CDATA[
+      select count(1) cnt
+      from tb_rcpt_trans a
+    ]]>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="0"> a.mid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="1"> a.gid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="2"> a.aid = #usr_id:VARCHAR# </isEqual>
+      and a.reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      <isNotEqual prepend="AND" property="stateCd" compareValue="all"> a.state_cd = #stateCd:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="status" compareValue="all"> a.cc_status = #status:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> a.req_flg = #reqFlg:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="coNo" compareValue=""> a.co_no = #coNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="ordNm" compareValue=""> a.ord_nm = #ordNm:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="appNo" compareValue=""> a.app_no = #appNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="tid" compareValue=""> a.tid = #tid:VARCHAR# </isNotEqual>
+      <isNotNull property="frAmt"> 
+              <isNotNull prepend="AND" property="toAmt">
+                a.goods_amt between #frAmt:VARCHAR# and #toAmt:VARCHAR# 
+              </isNotNull>
+            </isNotNull>
+      and a.state_cd = '1'
+      ) a
+  </select>
+
+  <select id="IssueListSearchCnt2" parameterClass="DataModel" resultClass="int"><!-- cacheModel="MobileGoodsReadCache"-->
+    <![CDATA[
+      select sum(a.cnt)
+      from (
+    ]]>
+    <![CDATA[
+      select count(1) cnt
+      from tb_rcpt_trans a
+    ]]>
+      where a.mid = #mid:VARCHAR#
+      and a.reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      <isNotEqual prepend="AND" property="stateCd" compareValue="all"> a.state_cd = #stateCd:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="status" compareValue="all"> a.status = #status:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> a.req_flg = #reqFlg:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="coNo" compareValue=""> a.co_no = #coNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="ordNm" compareValue=""> a.ord_nm = #ordNm:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="appNo" compareValue=""> a.app_no = #appNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="tid" compareValue=""> a.tid = #tid:VARCHAR# </isNotEqual>
+      <isNotNull property="frAmt"> 
+              <isNotNull prepend="AND" property="toAmt">
+                a.goods_amt between #frAmt:VARCHAR# and #toAmt:VARCHAR# 
+              </isNotNull>
+            </isNotNull>
+      and a.state_cd = '0'
+      union all
+    <![CDATA[
+      select count(1) cnt
+      from tb_rcpt_trans a
+    ]]>
+      where a.mid = #mid:VARCHAR#
+      and a.reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      <isNotEqual prepend="AND" property="stateCd" compareValue="all"> a.state_cd = #stateCd:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="status" compareValue="all"> a.cc_status = #status:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> a.req_flg = #reqFlg:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="coNo" compareValue=""> a.co_no = #coNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="ordNm" compareValue=""> a.ord_nm = #ordNm:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="appNo" compareValue=""> a.app_no = #appNo:VARCHAR# </isNotEqual>
+      <isNotEqual prepend="AND" property="tid" compareValue=""> a.tid = #tid:VARCHAR# </isNotEqual>
+      <isNotNull property="frAmt"> 
+              <isNotNull prepend="AND" property="toAmt">
+                a.goods_amt between #frAmt:VARCHAR# and #toAmt:VARCHAR# 
+              </isNotNull>
+            </isNotNull>
+      and a.state_cd = '1'
+      ) a
+    </select>  
+    
+  <!-- TID로 해당 현금영수증 정보 조회 -->
+  <select id="selCRInfo" parameterClass="DataModel" resultClass="DataModel">
+      select org_tid as "org_tid", org_svc_cd as "org_svc_cd", fn_nm_code1('svc_cd', org_svc_cd) as "org_svc_nm", org_svc_prdt_cd as "org_svc_prdt_cd", moid as "moid", mid as "mid", gid as "gid", aid as "aid", 
+             req_flg as "req_flg", goods_amt as "goods_amt", supply_amt as "supply_amt", goods_vat as "goods_vat", svs_amt as "svs_amt",
+             reg_dt as app_dt, reg_tm as app_tm, 
+             case when length(a.identity) in (10, 11) then 
+		               concat(substr(a.identity, 1, 3), '-', '****', '-', substr(a.identity, 8, length(a.identity)))
+		          when length(a.identity) = 13 then
+		               concat(substr(a.identity, 1, 6), '-', substr(a.identity, 7, 1), '******')
+		          when length(a.identity) = 16 then
+		               concat(substr(a.identity, 1, 4), '-', substr(a.identity, 5, 3), '*-****-', substr(a.identity, 13, 4))
+		          else a.identity end as "identity",  
+             sub_identity as "sub_identity", goods_nm as "goods_nm", ord_nm as "ord_nm", ord_tel as "ord_tel", ord_cp as "ord_cp", ord_email as "ord_email", 
+             fn_cd as "fn_cd", status as "status", co_no as "co_no", reg_dt as "reg_dt", reg_tm as "reg_tm", cc_dt as "cc_dt", cc_tm as "cc_tm",
+             case when req_flg = '0' then '미발행' when req_flg = '1' then '소득공제용' when req_flg = '2' then '증빙제출용' when req_flg = '3' then '자진발급' else '' end as "req_flg_nm",
+             case when state_cd = '0' then '승인' else '취소' end as "state_nm", state_cd as "state_cd", app_no as "app_no", a.compound_yn as "compound_yn", a.goods_tax_amt as "goods_tax_amt", a.goods_duty_free as "goods_duty_free"
+      from tb_rcpt_trans a
+      where tid = #TID:VARCHAR# or org_tid = #TID:VARCHAR#
+  </select>
+
+    <!-- 원거래 TID로 현금영수증 정보 조회 -->
+    <select id="selectRcptFlg" parameterClass="String" resultClass="DataModel">
+        select tid as tid, req_flg
+		FROM(
+		select tid as tid, req_flg 
+		        from tb_rcpt_trans 
+		        where org_tid = #TID:VARCHAR# 
+		    ORDER BY reg_dt DESC, reg_tm DESC
+		) a limit 1
+        
+    </select>    
+    
+    <!-- TID로 해당 현금영수증 정보 조회 -->
+  <select id="selCRInfoDetail" parameterClass="DataModel" resultClass="DataModel">
+      select org_tid as "tid", org_svc_cd as "org_svc_cd", org_svc_prdt_cd as "org_svc_prdt_cd", moid as "moid", mid as "mid", gid as "gid", aid as "aid", 
+             req_flg as "req_flg", goods_amt as "goods_amt", supply_amt as "supply_amt", goods_vat as "goods_vat", svs_amt as "svs_amt", 
+             case when length(a.identity) in (10, 11) then 
+                             concat(substr(a.identity, 1, 3), '-', substr(a.identity, 4, length(a.identity)-7), '-', '****')
+                        when length(a.identity) = 13 then
+                             concat(substr(a.identity, 1, 6), '-', substr(a.identity, 7, 1), '******')
+                        when length(a.identity) = 16 then
+                             concat(substr(a.identity, 1, 4), '-', substr(a.identity, 5, 3), '*-****-', substr(a.identity, 13, 4))
+                        else a.identity end as "identity", 
+             sub_identity as "sub_identity", goods_nm as "goods_nm", ord_nm as "ord_nm", ord_tel as "ord_tel", ord_cp as "ord_cp", ord_email as "ord_email", 
+             fn_cd as "fn_cd", status as "status", co_no as "co_no", reg_req_dt as "reg_req_dt", reg_req_tm as "reg_req_tm", reg_dt as "reg_dt", reg_tm as "reg_tm", 
+             cc_req_dt as "cc_req_dt", cc_req_tm as "cc_req_tm", app_no as "app_no",
+             fn_nm_code1('svc_cd', svc_cd) as "svc_nm", identity as "identity", svc_cd as "svc_cd",
+             case when req_flg = '0' then '미발행' when req_flg = '1' then '소득공제용' when req_flg = '2' then '증빙제출용' when req_flg = '3' then '자진발급' else '' end as "req_flg_nm",
+             case when state_cd = '0' then '승인' else '취소' end as "state_nm"
+      from tb_rcpt_trans a
+      where tid = #TID:VARCHAR#
+  </select>
+
+  <!-- 현금영수증 합계 조회 -->
+  <select id="IssueListTotal1" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MobileGoodsReadCache"-->
+    <![CDATA[
+      select a.reg_dt as "reg_dt", sum(a.app_cnt) as "app_cnt", sum(a.app_amt) as "app_amt", sum(a.can_cnt) as "can_cnt", sum(a.can_amt) as "can_amt"
+      from (
+    ]]>
+      <![CDATA[
+        select reg_dt, count(1) app_cnt, sum(goods_amt) app_amt, 0 can_cnt, 0 can_amt
+        from tb_rcpt_trans
+      ]]>
+        <isEqual prepend="WHERE" property="id_cl" compareValue="0"> mid = #usr_id:VARCHAR# </isEqual>
+        <isEqual prepend="WHERE" property="id_cl" compareValue="1"> gid = #usr_id:VARCHAR# </isEqual>
+        <isEqual prepend="WHERE" property="id_cl" compareValue="2"> aid = #usr_id:VARCHAR# </isEqual>
+        and reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+        <isNotEqual prepend="AND" property="stateCd" compareValue="all"> state_cd = #stateCd:VARCHAR# </isNotEqual>
+        <isNotEqual prepend="AND" property="status" compareValue="all"> status = #status:VARCHAR# </isNotEqual>
+        <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> req_flg = #reqFlg:VARCHAR# </isNotEqual>
+        <isEqual prepend="AND" property="code" compareValue="CoNo"> co_no = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="CoNm"> co_nm like concat('%',#text:VARCHAR#,'%')</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="OrdNm"> ord_nm like concat('%',#text:VARCHAR#,'%')</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="TID"> tid = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="GoodsAmt"> goods_amt = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="AppNo"> app_no = #text:VARCHAR#</isEqual>
+        and state_cd = '0'
+        group by reg_dt
+        union all
+        <![CDATA[
+        select cc_dt reg_dt, 0 app_cnt, 0 app_amt, count(1) can_cnt, sum(goods_amt) can_amt
+        from tb_rcpt_trans
+      ]]>
+        <isEqual prepend="WHERE" property="id_cl" compareValue="0"> mid = #usr_id:VARCHAR# </isEqual>
+        <isEqual prepend="WHERE" property="id_cl" compareValue="1"> gid = #usr_id:VARCHAR# </isEqual>
+        <isEqual prepend="WHERE" property="id_cl" compareValue="2"> aid = #usr_id:VARCHAR# </isEqual>
+        and reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+        <isNotEqual prepend="AND" property="stateCd" compareValue="all"> state_cd = #stateCd:VARCHAR# </isNotEqual>
+        <isNotEqual prepend="AND" property="status" compareValue="all"> cc_status = #status:VARCHAR# </isNotEqual>
+        <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> req_flg = #reqFlg:VARCHAR# </isNotEqual>
+        <isEqual prepend="AND" property="code" compareValue="CoNo"> co_no = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="CoNm"> co_nm like concat('%',#text:VARCHAR#,'%')</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="OrdNm"> ord_nm like concat('%',#text:VARCHAR#,'%')</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="TID"> tid = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="GoodsAmt"> goods_amt = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="AppNo"> app_no = #text:VARCHAR#</isEqual>
+        and state_cd = '1'
+        group by cc_dt
+      ) a
+      group by a.reg_dt
+  </select>
+
+  <select id="IssueListTotal2" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MobileGoodsReadCache"-->
+    <![CDATA[
+      select a.reg_dt as "reg_dt", sum(a.app_cnt) as "app_cnt", sum(a.app_amt) as "app_amt", sum(a.can_cnt) as "can_cnt", sum(a.can_amt) as "can_amt"
+      from (
+    ]]>
+      <![CDATA[
+        select reg_dt, count(1) app_cnt, sum(goods_amt) app_amt, 0 can_cnt, 0 can_amt
+        from tb_rcpt_trans
+      ]]>
+        where mid = #mid:VARCHAR#
+        and reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+        <isNotEqual prepend="AND" property="stateCd" compareValue="all"> state_cd = #stateCd:VARCHAR# </isNotEqual>
+        <isNotEqual prepend="AND" property="status" compareValue="all"> status = #status:VARCHAR# </isNotEqual>
+        <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> req_flg = #reqFlg:VARCHAR# </isNotEqual>
+        <isEqual prepend="AND" property="code" compareValue="CoNo"> co_no = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="CoNm"> co_nm like concat('%',#text:VARCHAR#,'%')</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="OrdNm"> ord_nm like concat('%',#text:VARCHAR#,'%')</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="TID"> tid = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="GoodsAmt"> goods_amt = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="AppNo"> app_no = #text:VARCHAR#</isEqual>
+        and state_cd = '0'
+        group by reg_dt
+        union all
+      <![CDATA[
+        select cc_dt reg_dt, 0 app_cnt, 0 app_amt, count(1) can_cnt, sum(goods_amt) can_amt
+        from tb_rcpt_trans
+      ]]>
+        where mid = #mid:VARCHAR#
+        and reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+        <isNotEqual prepend="AND" property="stateCd" compareValue="all"> state_cd = #stateCd:VARCHAR# </isNotEqual>
+        <isNotEqual prepend="AND" property="status" compareValue="all"> cc_status = #status:VARCHAR# </isNotEqual>
+        <isNotEqual prepend="AND" property="reqFlg" compareValue="all"> req_flg = #reqFlg:VARCHAR# </isNotEqual>
+        <isEqual prepend="AND" property="code" compareValue="CoNo"> co_no = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="CoNm"> co_nm like concat('%',#text:VARCHAR#,'%')</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="OrdNm"> ord_nm like concat('%',#text:VARCHAR#,'%')</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="TID"> tid = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="GoodsAmt"> goods_amt = #text:VARCHAR#</isEqual>
+        <isEqual prepend="AND" property="code" compareValue="AppNo"> cc_no = #text:VARCHAR#</isEqual>
+        and state_cd = '1'
+        group by cc_dt
+      ) a
+      group by a.reg_dt
+  </select>  
+  
+  <!-- 현금영수증 발급 대상 조회 -->
+  <select id="CashReceiptSearch1" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MobileGoodsReadCache"-->
+    <![CDATA[
+      select a.mid as "mid", a.svc_cd as "svc_cd", fn_nm_code1('svc_cd', a.svc_cd) as "svc_cd_nm", a.app_dt as "app_dt", a.goods_amt as "goods_amt", 
+             a.goods_nm as "goods_nm", a.ord_nm as "ord_nm", a.moid as "moid", a.tid as "tid"
+      from tb_bank_trans a
+      where not exists (select 1 from tb_rcpt_trans b where b.org_tid = a.tid)
+    ]]>
+      <isEqual prepend="AND" property="id_cl" compareValue="0"> a.mid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="AND" property="id_cl" compareValue="1"> a.gid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="AND" property="id_cl" compareValue="2"> a.aid = #usr_id:VARCHAR# </isEqual>
+      and a.app_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      and a.state_cd = '0'
+      <isNotEqual prepend="AND" property="SvcCd" compareValue="all"> a.svc_cd = #SvcCd:VARCHAR# </isNotEqual>
+      union all
+    <![CDATA[
+      select a.mid as "mid", a.svc_cd as "svc_cd", fn_nm_code1('svc_cd', a.svc_cd) as "svc_cd_nm", a.app_dt as "app_dt", a.goods_amt as "input_amt", 
+             a.goods_nm as "goods_nm", a.ord_nm as "ord_nm", a.moid as "moid", a.tid as "tid"
+      from tb_vacct_trans a
+      where not exists (select 1 from tb_rcpt_trans c where c.org_tid = a.tid)
+    ]]>
+      <isEqual prepend="AND" property="id_cl" compareValue="0"> a.mid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="AND" property="id_cl" compareValue="1"> a.gid = #usr_id:VARCHAR# </isEqual>
+      <isEqual prepend="AND" property="id_cl" compareValue="2"> a.aid = #usr_id:VARCHAR# </isEqual>
+      and a.app_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      and a.state_cd = '0'
+      <isNotEqual prepend="AND" property="SvcCd" compareValue="all"> a.svc_cd = #SvcCd:VARCHAR# </isNotEqual>
+  </select>
+
+  <select id="CashReceiptSearch2" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MobileGoodsReadCache"-->
+    <![CDATA[
+      select a.mid as "mid", a.svc_cd as "svc_cd", fn_nm_code1('svc_cd', a.svc_cd) as "svc_cd_nm", a.app_dt as "app_dt", a.goods_amt as "goods_amt", 
+             a.goods_nm as "goods_nm", a.ord_nm as "ord_nm", a.moid as "moid", a.tid as "tid"
+      from tb_bank_trans a
+      where not exists (select 1 from tb_rcpt_trans b where b.org_tid = a.tid)
+    ]]>
+      and a.mid = #usr_id:VARCHAR#
+      and a.app_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      and a.state_cd = '0'
+      <isNotEqual prepend="AND" property="SvcCd" compareValue="all"> a.svc_cd = #SvcCd:VARCHAR# </isNotEqual>
+      union all
+    <![CDATA[
+      select a.mid as "mid", a.svc_cd as "svc_cd", fn_nm_code1('svc_cd', a.svc_cd) as "svc_cd_nm", a.app_dt as "app_dt", a.goods_amt as "goods_amt", 
+             a.goods_nm as "goods_nm", a.ord_nm as "ord_nm", a.moid as "moid", a.tid as "tid"
+      from tb_vacct_trans a
+      where not exists (select 1 from tb_rcpt_trans c where c.org_tid = a.tid)
+    ]]>
+      and a.mid = #usr_id:VARCHAR#
+      and a.app_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+      and a.state_cd = '0'
+      <isNotEqual prepend="AND" property="SvcCd" compareValue="all"> a.svc_cd = #SvcCd:VARCHAR# </isNotEqual>
+  </select>
+  
+  <select id="CashReceiptSearchCnt1" parameterClass="DataModel" resultClass="int"><!-- cacheModel="MobileGoodsReadCache"-->
+    select sum(a.cnt) 
+    from (
+      <![CDATA[
+        select count(1) cnt
+        from tb_bank_trans a
+        where not exists (select 1 from tb_rcpt_trans b where b.org_tid = a.tid)
+      ]]>
+        <isEqual prepend="AND" property="id_cl" compareValue="0"> a.mid = #usr_id:VARCHAR# </isEqual>
+        <isEqual prepend="AND" property="id_cl" compareValue="1"> a.gid = #usr_id:VARCHAR# </isEqual>
+        <isEqual prepend="AND" property="id_cl" compareValue="2"> a.aid = #usr_id:VARCHAR# </isEqual>
+        and a.app_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+        and a.state_cd = '0'
+        <isNotEqual prepend="AND" property="SvcCd" compareValue="all"> a.svc_cd = #SvcCd:VARCHAR# </isNotEqual>
+        union all
+      <![CDATA[
+        select count(1) cnt
+        from tb_vacct_trans a
+        where not exists (select 1 from tb_rcpt_trans c where c.org_tid = a.tid)
+      ]]>
+        <isEqual prepend="AND" property="id_cl" compareValue="0"> a.mid = #usr_id:VARCHAR# </isEqual>
+        <isEqual prepend="AND" property="id_cl" compareValue="1"> a.gid = #usr_id:VARCHAR# </isEqual>
+        <isEqual prepend="AND" property="id_cl" compareValue="2"> a.aid = #usr_id:VARCHAR# </isEqual>
+        and a.app_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+        and a.state_cd = '0'
+        <isNotEqual prepend="AND" property="SvcCd" compareValue="all"> a.svc_cd = #SvcCd:VARCHAR# </isNotEqual>
+    ) a
+  </select>
+
+  <select id="CashReceiptSearchCnt2" parameterClass="DataModel" resultClass="int"><!-- cacheModel="MobileGoodsReadCache"-->
+    select sum(a.cnt) 
+    from (
+      <![CDATA[
+        select count(1) cnt
+        from tb_bank_trans a
+        where not exists (select 1 from tb_rcpt_trans b where b.org_tid = a.tid)
+      ]]>
+        and a.mid = #usr_id:VARCHAR#
+        and a.app_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+        and a.state_cd = '0'
+        <isNotEqual prepend="AND" property="SvcCd" compareValue="all"> a.svc_cd = #SvcCd:VARCHAR# </isNotEqual>
+        union all
+      <![CDATA[
+        select count(1) cnt
+        from tb_vacct_trans a
+        where not exists (select 1 from tb_rcpt_trans c where c.org_tid = a.tid)
+      ]]>
+        and a.mid = #usr_id:VARCHAR#
+        and a.app_dt between #frDt:VARCHAR# and #toDt:VARCHAR#
+        and a.state_cd = '0'
+        <isNotEqual prepend="AND" property="SvcCd" compareValue="all"> a.svc_cd = #SvcCd:VARCHAR# </isNotEqual>
+    ) a
+  </select>
+  
+  <select id="getCashReceiptLowData" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MobileGoodsReadCache"-->
+    <![CDATA[
+      select a.tid as "org_tid", a.svc_cd as "org_svc_cd", a.svc_prdt_cd as "org_svc_prdt_cd", a.moid as "moid", a.mid as "mid", a.gid as "gid", a.aid as "aid", 
+             b.co_no as "co_no", b.vat_mark as "vat_mark", b.mid_url as "mid_url", b.co_nm as "co_nm", b.tel_no as "tel_no", b.cash_inform as "cash_inform", 
+             a.settlmnt_cycle as "settlmnt_cycle", a.goods_amt as "goods_amt", a.ord_cp as "identity", a.goods_nm as "goods_nm", a.ord_nm as "ord_nm", 
+             a.ord_tel as "ord_tel", a.ord_cp as "ord_cp", a.ord_email as "ord_email", a.bank_cd as "fn_cd"
+      from tb_bank_trans a, tb_merchant b
+      where a.tid = #TID:VARCHAR#
+      and a.svc_cd = '02'
+      and a.state_cd = '0'
+      and b.mid = a.mid
+      union all
+      select a.tid as "org_tid", a.svc_cd as "org_svc_cd", a.svc_prdt_cd as "org_svc_prdt_cd", a.moid as "moid", a.mid as "mid", a.gid as "gid", a.aid as "aid",
+             c.co_no as "co_no", c.vat_mark as "vat_mark",  c.mid_url as "mid_url", c.co_nm as "co_nm", c.tel_no as "tel_no", c.cash_inform as "cash_inform", 
+             a.settlmnt_cycle as "settlmnt_cycle", a.goods_amt as "goods_amt", a.ord_soc_no as "identity", a.goods_nm as "goods_nm", a.ord_nm as "ord_nm", 
+             a.ord_tel as "ord_tel", a.ord_cp as "ord_cp", a.ord_email as "ord_email", a.bank_cd as "fn_cd"
+      from tb_vacct_trans a, tb_merchant c
+      where a.tid = #TID:VARCHAR#
+      and a.state_cd = '0'
+      and a.svc_cd = '03'
+      and c.mid = a.mid
+    ]]>
+  </select>
+  
+  <!-- 현금영수증 사업자번호 Check - 등록 MID && MID의 서브몰 -->
+  <select id="ValidCoNoCnt" parameterClass="DataModel" resultClass="int"><!-- cacheModel="MobileGoodsReadCache"-->
+      select sum(a.cnt)
+      from (
+        select count(1) cnt
+        from tb_merchant
+        where mid = #usr_id:VARCHAR#
+        and co_no = #CoNo:VARCHAR#
+        and use_cl = '0'
+        union all
+        select count(1) cnt
+        from tb_subcash
+        where mid = #usr_id:VARCHAR#
+        and co_no = #CoNo:VARCHAR#
+        and status = '0'
+      ) a
+  </select>    
+  
+  <!-- TID로 해당 현금영수증 정보 조회 -->
+  <select id="getCashReceiptIssueDetail" parameterClass="DataModel" resultClass="DataModel">
+      select a.reg_dt as "reg_dt", a.org_svc_cd as "org_svc_cd", fn_nm_code1('svc_cd', a.org_svc_cd) as "org_svc_nm", a.co_no as "co_no", a.reg_dt as "reg_dt", a.cc_dt as "cc_dt",
+             a.goods_amt as "goods_amt", a.supply_amt as "supply_amt", a.goods_vat as "goods_vat", a.svs_amt as "svs_amt", 
+             case when length(a.identity) in (10, 11) then 
+                             concat(substr(a.identity, 1, 3), '-', substr(a.identity, 4, length(a.identity)-7), '-', '****')
+                        when length(a.identity) = 13 then
+                             concat(substr(a.identity, 1, 6), '-', substr(a.identity, 7, 1), '******')
+                        when length(a.identity) = 16 then
+                             concat(substr(a.identity, 1, 4), '-', substr(a.identity, 5, 3), '*-****-', substr(a.identity, 13, 4))
+                        else a.identity end as "identity", a.ord_nm as "ord_nm", 
+             a.goods_nm as "goods_nm", a.app_no as "app_no", b.co_nm as "co_nm", b.boss_nm as "boss_nm", b.tel_no as "tel_no", a.state_cd as "state_cd"
+      from (
+        select a.co_no, a.reg_dt, a.cc_dt, a.goods_amt, a.supply_amt, a.goods_vat, a.svs_amt, a.identity, a.ord_nm, a.goods_nm, a.app_no, a.org_svc_cd, a.state_cd    
+        from tb_rcpt_trans a
+        where a.tid = #TID:VARCHAR#
+      ) a, 
+      (
+        select a.co_no, a.co_nm, a.boss_nm, a.tel_no from tb_merchant a
+        union
+        select a.co_no, a.co_nm, a.boss_nm, a.tel as "tel_no" from tb_subcash a
+       ) b
+      where a.co_no = b.co_no
+  </select>
+  
+  <!-- 현금영수증 서브몰 등록여부 -->
+  <select id="SubMallDupChk" parameterClass="DataModel" resultClass="int">
+    select count(1)
+    from tb_subcash
+    where mid = #mid:VARCHAR#
+    and co_no = #CoNo:VARCHAR#
+  </select>
+  
+  <!-- 현금영수증 서브몰 조회 -->
+  <select id="SubMallSearch" parameterClass="DataModel" resultClass="DataModel">
+      select mid as "mid", co_no as "co_no", co_nm as "co_nm", reg_dt as "reg_dt", tel as "tel", boss_nm as "boss_nm"
+      from tb_subcash
+      where mid = #mid:VARCHAR#
+      <isEqual prepend="AND" property="chkReg" compareValue="on"> reg_dt between #frDt:VARCHAR# and #toDt:VARCHAR# </isEqual>
+  </select>
+  
+</sqlMap>    

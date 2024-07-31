@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- 금융결제원 PG서비스  Sample 결제요청 페이지 -->
+<html>
+<head>
+<meta charset="utf-8">
+    <title>Bankpay Sample 결제페이지</title>
+    <style type="text/css">
+    <!--
+    td {  font-family: "굴림"; font-size: 11pt; color: #666666}
+    -->
+    </style>
+    
+    <!-- 전자지갑 버전이 업그레이드되었을 경우 자동으로 다운로드 하도록 다음의 meta tag 추가 (브라우저 캐싱 방지) -->
+    <meta http-equiv="Cache-Control" content="No-Cache">
+    <meta http-equiv="Pragma" content="No-Cache">
+    <!-- 거래번호를 생성/셋팅하기 위한 부분 >> 중개사 환경에 맞게 적용가능 -->
+    <script type="text/javascript">
+        function setTxUserKey(){
+            var userKey = "1011490000228A"+new Date().getTime();
+            var frm = document.requestForm;
+            frm.tx_user_key.value=userKey;
+        }
+    </script>
+</head>
+
+<body onload="setTxUserKey()" bgcolor="ivory" text="black" link="blue" vlink="purple" alink="red">
+
+<!-- 아래 pay.jsp의 경로를 중개사 환경에 맞게 수정 -->
+<!-- 중개사시스템에서 크라우드시스템으로 결제요청 로직이 들어가는 jsp 페이지 URL  -->
+<form name="requestForm" method="post" action="./bank/bankpay.jsp" target="INVISIBLE>">
+<!-- 고정파라미터 수정하지 마세요!!!! -->
+<!-- (운영) -->
+<input type="hidden" name="hd_ep_type" value="SECUCERT"/> 
+<!-- 테스트 -->
+<!-- <input type="hidden" name="hd_ep_type" value="CERT"/> -->  
+<!-- 아래 필드는 결제원 내부 사용값으로 아래의 값 그대로 유지 (임의변경 불가) -->
+<input type="hidden" name="hd_pi" value=""/>
+<input type="hidden" name="hd_input_option" value="32"/>
+<input type="hidden" name="hd_ep_option"    value="324"/>
+<input type="hidden" name="hd_approve_no" value="15201418"/>
+<input type="hidden" name="hd_serial_no" value="0000000"/>
+<!-- 전자지갑에 표시될 기관명을 세팅한다. -->
+<input type="hidden" name="hd_firm_name" value="한국증권금융" />
+<input type="hidden" name='hd_timeout' value='300000'/>
+<input type="hidden" name="sbp_service_use" value="N"/>        
+<input type="hidden" name="sbp_tab_first" value="N"/>
+<input type="hidden" name="service_order" value="E"/>
+
+<!-- 중개사 셋팅파라미터  -->
+<!-- 거래번호 유니크한 키값을 셋팅 -->
+<input type="hidden" name="tx_user_key" value=""/>
+<!-- 전자지갑에 표시될 물품명(청약종목코드)을 세팅한다.(최대 10자리)-->
+<input type="hidden" name="hd_item_name" value="테스트청약"/>
+
+<!-- 고객실명확인번호 셋팅-->
+<!-- <input type="hidden" name="hd_personal" value="6312061277229"/> -->
+<input type="hidden" name="hd_personal" value=""/>
+<!-- 고객 결제은행코드 셋팅-->
+<input type="hidden" name="ep_bank_code" value="" />
+<!-- 고객 결제 계좌번호 셋팅-->
+<input type="hidden" name="ep_account_no" value="" />
+
+
+<p>&nbsp;</p>
+<p align="center"><font color="blue"><b>Bankpay Sample 결제페이지</b></font></p>
+<p>&nbsp;</p><p>&nbsp;</p>
+<p>
+<table align="center" border="1" width="400" cellpadding="5" cellspacing="0">
+<tr>
+    <td> 상품명 </td> 
+    <td>테스트청약</td>
+</tr>
+<tr>
+    <td><font size="2">결제 금액</font></td>
+    <td><font color="red" size="2">
+    <!-- 실제로 결제할 금액을 기입한다. 수수료 포함-->
+    <input type="text" name="tx_amount" value="1100"/></font></td>
+</tr>
+<tr>
+    <td><font size="2">결제방법</font></td>
+    <td><font size="2">실시간계좌이체</font></td>
+</tr>
+
+</table>
+<p>&nbsp;</p><p>&nbsp;</p>
+<p align="center"> 
+
+<!-- 결제를 위하여 전자 지갑을 호출하는 자바 스크립트 호출 -->
+<input type="button" value="결제요청" onClick="javascript:requestForm.submit();"/>
+&nbsp;&nbsp;&nbsp;
+</p>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+  <settings useStatementNamespaces="false"
+   cacheModelsEnabled="true"
+   enhancementEnabled="true"
+   lazyLoadingEnabled="true"
+   maxRequests="512"
+   maxSessions="128"
+   maxTransactions="32"/>
+ 
+  <!-- Configure a built-in transaction manager.  If you're using an 
+       app server, you probably want to use its transaction manager 
+       and a managed datasource -->
+ 
+  <transactionManager type="JDBC">
+    <dataSource type="JNDI">
+        <property name="DataSource" value="java:comp/env/jdbc/INFINIPG" />
+    </dataSource>
+  </transactionManager>
+  <!-- List more here... -->
+  <sqlMap resource="kr/co/infinisoft/pg/common/biz/commonbiz.xml"/>
+  
+</sqlMapConfig>

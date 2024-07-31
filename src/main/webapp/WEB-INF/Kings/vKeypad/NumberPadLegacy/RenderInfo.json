@@ -1,0 +1,148 @@
+{
+    "type": "NUMBERPAD_LEGACY",
+    "background": "Background.png",
+    "security": "Security.png",
+    "fixedKeys": [
+        {
+            "character": "BACKSPACE",
+            "point": {
+                "x": 211,
+                "y": 21
+            },
+            "image": "Backspace.png"
+        },
+        {
+            "character": "DONE",
+            "point": {
+                "x": 258,
+                "y": 21
+            },
+            "image": "Done.png"
+        },
+        {
+            "character": "CANCEL",
+            "point": {
+                "x": 23,
+                "y": 21
+            },
+            "image": "Cancel.png"
+        }
+    ],
+    "layouts": [
+        {
+            "name": "NORMAL",
+            "randomGroups": [
+                {
+                    "type": "full",
+                    "points": [
+                        {
+                            "x": 23,
+                            "y": 68
+                        },
+                        {
+                            "x": 70,
+                            "y": 68
+                        },
+                        {
+                            "x": 117,
+                            "y": 68
+                        },
+                        {
+                            "x": 164,
+                            "y": 68
+                        },
+                        {
+                            "x": 211,
+                            "y": 68
+                        },
+                        {
+                            "x": 258,
+                            "y": 68
+                        },
+                        {
+                            "x": 305,
+                            "y": 68
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "1",
+                            "image": "1.png"
+                        },
+                        {
+                            "character": "2",
+                            "image": "2.png"
+                        },
+                        {
+                            "character": "3",
+                            "image": "3.png"
+                        },
+                        {
+                            "character": "4",
+                            "image": "4.png"
+                        },
+                        {
+                            "character": "5",
+                            "image": "5.png"
+                        }
+                    ]
+                },
+                {
+                    "type": "full",
+                    "points": [
+                        {
+                            "x": 23,
+                            "y": 111
+                        },
+                        {
+                            "x": 70,
+                            "y": 111
+                        },
+                        {
+                            "x": 117,
+                            "y": 111
+                        },
+                        {
+                            "x": 164,
+                            "y": 111
+                        },
+                        {
+                            "x": 211,
+                            "y": 111
+                        },
+                        {
+                            "x": 258,
+                            "y": 111
+                        },
+                        {
+                            "x": 305,
+                            "y": 111
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "6",
+                            "image": "6.png"
+                        },
+                        {
+                            "character": "7",
+                            "image": "7.png"
+                        },
+                        {
+                            "character": "8",
+                            "image": "8.png"
+                        },
+                        {
+                            "character": "9",
+                            "image": "9.png"
+                        },
+                        {
+                            "character": "0",
+                            "image": "0.png"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+xpgclient.servers=CARD_BL,CANCEL_BL,VBANK_BL,CASH_BL,BANK_BL,MOBILE_BL,MPG_IF,ESCROW_BL
+
+xpgclient.server.CARD_BL.0.host=127.0.0.1
+xpgclient.server.CARD_BL.0.port=9101
+xpgclient.server.CARD_BL.0.rate=100
+xpgclient.server.CARD_BL.document=/infinisoft_pg.xml
+
+xpgclient.server.CANCEL_BL.0.host=127.0.0.1
+xpgclient.server.CANCEL_BL.0.port=9106
+xpgclient.server.CANCEL_BL.0.rate=100
+xpgclient.server.CANCEL_BL.document=/infinisoft_cancel.xml
+
+xpgclient.server.CASH_BL.0.host=127.0.0.1
+xpgclient.server.CASH_BL.0.port=9105
+xpgclient.server.CASH_BL.0.rate=100
+xpgclient.server.CASH_BL.document=/infinisoft_pg.xml

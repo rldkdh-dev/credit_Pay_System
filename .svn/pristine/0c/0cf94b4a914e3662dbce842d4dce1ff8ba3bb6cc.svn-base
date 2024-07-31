@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CardSmsMap">
+
+	<typeAlias alias="box" type="kr.co.infinisoft.pg.document.Box" />
+	<typeAlias alias="sms" type="mobile.Sms" />
+  
+  <insert id="insertCardSmsOrder" parameterClass="box">
+  	insert into tb_card_order
+  	(
+  		TID,
+  		ORDER_CODE, 
+  		MOID, 
+  		REQ_DT, 
+  		REQ_TM, 
+  		MID, 
+  		GOODS_NM, 
+  		GOODS_AMT, 
+  		ORD_NM, 
+  		ORD_TEL, 
+  		ORD_EMAIL, 
+  		INSTMNT_MON,
+  		EXP_DT,
+  		EXP_TM,
+  		EXP_TERM,
+  		DEVICE
+  	)
+  	values(
+  		#TID#,
+  		#OrderCode#,
+  		#Moid#,
+  		#ReqDt#,
+  		#ReqTm#,
+  		#MID#,
+  		#GoodsName#,
+  		#GoodsAmt#,
+  		#BuyerName#,
+  		#BuyerTel#,
+  		#BuyerEmail#,
+  		#CardQuota#,
+  		#ExpDt#,
+  		#ExpTm#,
+  		#ExpTerm#,
+  		ifnull(#Device#,'pc')
+  	)
+  </insert>
+   <select id="epay_cardcode.select" parameterClass="box" resultClass="Object">
+   select code1 as "fn_cd"
+   from tb_code
+   where col_nm =#colNm#
+   and desc1 = #cardCode#
+   </select>
+   
+    <select id="epay_pg_mid.select" parameterClass="box" resultClass="java.util.HashMap">
+   select svc_cd as "svc_cd", pg_mid as "pg_mid"
+   from tb_pg_info
+   where mid =#mid#
+   </select>
+   
+   
+  	<!-- tb_isp_auth 입력 -->
+  		<insert id="epay_kakao.insert" parameterClass="box">
+		INSERT INTO tb_epay_kakao_auth
+			(
+			tid,	mid, kakao_xid, kakao_cavv,
+		 	EPayCl, Device 
+			)
+		VALUES
+			(
+			#tid#,	#mid#, #kakao_xid#, #kakao_cavv#,
+			#EPayCl#, #Device#
+			)
+	</insert>
+	<insert id="epay_payco.insert" parameterClass="box">
+		INSERT INTO tb_epay_payco_auth
+			(
+			tid, mid, 
+			Payco_sellerOrderReferenceKey, Payco_reserveOrderNo,Payco_mccode,
+			Payco_pccode,Payco_pcnumb, Payco_paymentCertifyToken, Payco_sellerKey,			
+			EPayCl, Device
+			)
+		VALUES
+			(
+			#tid#, #mid#,		    
+			#Payco_sellerOrderReferenceKey#, #Payco_reserveOrderNo#, #Payco_mccode#, 
+			#Payco_pccode#, #Payco_pcnumb#, #Payco_paymentCertifyToken#, #Payco_sellerKey#,
+			#EPayCl#,#Device#
+			)
+	</insert>
+		<insert id="epay_lotte.insert" parameterClass="box">
+		INSERT INTO tb_epay_lotte_auth
+			(
+			tid,	mid, LPAY_PG_ID, LPAY_OTC_NUM,
+			 LPAY_P_REQ_ID,
+		   LPAY_MEM_M_NUM, LPAY_F_CO_CD,   LPAY_TR_ID, EPayCl
+			)
+		VALUES
+			(
+			#tid#,		#mid#, #LPAY_PG_ID#, #LPAY_OTC_NUM#,
+		    #LPAY_P_REQ_ID#,
+			#LPAY_MEM_M_NUM#, #LPAY_F_CO_CD#, #LPAY_TR_ID#,
+			#EPayCl#
+			)
+	</insert>
+	
+		<insert id="epay_naver.insert" parameterClass="box">
+		INSERT INTO tb_epay_naver_auth
+			(
+			TID, MID,cardNumber,cardExpiredDate,cardCode,
+		    paymentId, installment, trid, eci, xid, cavv, TrackII, EPayCl
+			)
+		VALUES
+			(
+			#tid#, #mid#, #cardNumber#, #cardExpiredDate#,#cardCode#, #paymentId#,
+		    #installment#,#trid#, #eci#, #xid#, #cavv#, #TrackII#, #EPayCl#
+			)
+	</insert>
+		<insert id="epay_ssg.insert" parameterClass="box">
+		INSERT INTO tb_epay_ssg_auth
+			(
+			tid,	mid, SSGPAY_PLATFORM_MID, SSGPAY_CARD_TRACK2_DATA,
+		    SSGPAY_TERMID,
+			SSGPAY_MGIFT_CARD_YN, SSGPAY_CARD_CERT_FLAG, SSGPAY_DELEGATE_CERTIFY_CODE, SSGPAY_OID,
+			SSGPAY_MGIFT_TRADE_AMT, SSGPAY_CARD_YN, SSGPAY_PAYMETHOD,
+			SSGPAY_MGIFT_CONFIRM_NO, SSGPAY_CARD_ETC_DATA, SSGPAY_MGIFT_CARD_NO, 
+			SSGPAY_CARD_CERTFY_NO, EPayCl
+			)
+		VALUES
+			(
+			#tid#,	#mid#, #SSGPAY_PLATFORM_MID#, #SSGPAY_CARD_TRACK2_DATA#,
+			#SSGPAY_TERMID#, #SSGPAY_MGIFT_CARD_YN#, #SSGPAY_CARD_CERT_FLAG#,
+			#SSGPAY_DELEGATE_CERTIFY_CODE#, #SSGPAY_OID#, #SSGPAY_MGIFT_TRADE_AMT#,
+	        #SSGPAY_CARD_YN#, #SSGPAY_PAYMETHOD#,
+			#SSGPAY_MGIFT_CONFIRM_NO#, #SSGPAY_CARD_ETC_DATA#,
+			#SSGPAY_MGIFT_CARD_NO#, #SSGPAY_CARD_CERTFY_NO#,
+			#EPayCl#
+			)
+	</insert>
+	
+	
+	
+  <!-- 결제결과 통지용 SMS 발송 2017.03 -->
+  <update id="smsInsert" parameterClass="sms">
+    INSERT INTO MSG_QUEUE
+        (MSEQ, MSG_TYPE, DSTADDR, CALLBACK, STAT, SUBJECT, TEXT, REQUEST_TIME)
+    VALUES
+        (MSG_QUEUE_SEQ.NEXTVAL, #msg_type#, #dstaddr#, #callback#, '0', #subject#, #text#, SYSDATE)
+  </update>
+  
+  <update id="updateCardSmsOrder" parameterClass="box">
+  	UPDATE tb_card_order
+  	SET
+  		ORDER_STATE_CD = '2'
+  	where
+  		ORDER_CODE = #OrderCode#
+  	AND TID = #TID#
+  	AND MOID = #Moid#
+  </update>
+  
+  
+  
+</sqlMap>

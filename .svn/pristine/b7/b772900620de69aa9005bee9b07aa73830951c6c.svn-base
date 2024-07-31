@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CardSmsReadMap">
+
+	<typeAlias alias="box" type="kr.co.infinisoft.pg.document.Box" />
+
+   <!-- 지불수단 사용여부 -->
+  <select id="selectCardSmsOrder" parameterClass="String" resultClass="box">
+  select
+  	*
+  from(
+  		select 
+			TID,
+			ORDER_CODE as "OrderCode",
+			MOID as "Moid",
+			MID,
+			GOODS_NM as "GoodsName",
+			GOODS_AMT as "GoodsAmt",
+			ORD_NM as "BuyerName",
+			ORD_TEL as "BuyerTel",
+			ORD_EMAIL as "BuyerEmail",
+			INSTMNT_MON as "CardQuota",
+			DATE_ADD(concat(exp_dt, exp_tm), INTERVAL 0 day) as "ExpireTime",
+			case when concat(exp_dt,exp_tm) > date_format(now(), '%Y%m%d%H%i%s') then 'true' else 'false' end as "ExpireStatus",
+			ORDER_STATE_CD as "OrderState",
+			DEVICE as "Device"
+	    from
+	    	tb_card_order
+	    where
+	    	ORDER_CODE = #value:VARCHAR#
+	    and req_dt >= date_format(DATE_ADD(now(), INTERVAL -7 day),'%Y%m%d')
+		ORDER BY REQ_DT||REQ_TM desc
+  	  ) a limit 1
+  </select>
+  
+  <!-- 인증 결제 주문정보 조회 -->
+  <select id="selectCardConfOrder" parameterClass="String" resultClass="box">
+    select e.MID_NM
+    	  ,a.GOODS_NAME
+    	  ,e.TEL_NO
+    	  ,e.ADDR_NO1
+    	  ,e.ADDR_NO2
+    	  ,a.BUYER_NAME
+    	  ,a.BUYER_CELLPHONE_NO
+    	  ,e.DELIVERY_CL AS DEV_ADDR_CL
+    	  ,d.zone_code
+    	  ,d.address
+    	  ,d.address_detail
+    	  ,b.goods_cnt
+    	  ,a.GOODS_AMT
+    	  ,a.GOODS_TAX_AMT
+    	  ,a.GOODS_DUTY_FREE
+    	  ,a.MOID
+    	  ,a.MID
+    	  ,a.BUYER_EMAIL
+    	  ,a.SHOP_LICENSE_KEY
+    	  ,d.delivery_seq
+    	  ,f.INFORM_WAY
+    	  ,a.STEP
+    	  ,if(a.EXPIRE_DATE > now(), 'Y', 'N') as EXPIRE_YN
+    	  ,c.image
+    	  ,a.PG_CODE
+    	  ,a.USER_ID
+    	  ,a.SVC_CD
+    	  ,a.SVC_PRDT_CD
+    	  ,a.PG_MID
+    	  ,a.BUYER_CODE
+    	  ,e.LIMIT_INSTMN
+          ,e.AUTH_FLG
+          ,e.JOIN_TYPE
+          ,g.PG_KEY_IN_CL
+          ,e.AID
+          ,g.PG_CD
+	  from PG.tb_order as a
+	 inner join PG.tb_merchant as e
+        on a.MID = e.MID
+	  left outer join PG.tb_order_item b
+	    on a.ORDER_CODE = b.order_code
+	  left outer join PG.tb_goods_image c
+	    on b.goods_seq = c.goods_seq
+	  left outer join PG.tb_order_delivery d
+	    on a.ORDER_CODE = d.order_code
+	  left outer join PG.tb_trans_inform f
+        on a.MID = f.MID
+       and f.SVC_CD = a.SVC_CD
+       and f.SVC_PRDT_CD = a.SVC_PRDT_CD
+       and DATE_FORMAT(NOW(), "%Y%m%d") between f.FR_DT and f.TO_DT
+      left outer join PG.tb_pg_info g
+       on a.MID = g.MID
+       and g.SVC_CD = a.SVC_CD
+       and g.SVC_PRDT_CD = a.SVC_PRDT_CD
+       and DATE_FORMAT(NOW(), "%Y%m%d") between g.FR_DT and g.TO_DT
+	 where a.ORDER_CODE = #value:VARCHAR#
+	   and a.SVC_CD = '01'
+	   and (a.SVC_PRDT_CD = '04' or a.SVC_PRDT_CD = '03')
+	 order by a.REGIST_DATE, b.item_seq asc limit 1
+  </select>
+  <update id="updateDeliveryInfo" parameterClass="box">
+    update PG.tb_order_delivery SET
+		   zone_code = #ZoneCode#
+		  ,address = #Address#
+		  ,address_detail = #AddressDetail#
+		WHERE delivery_seq = #DeliverySeq#
+  </update>
+  <insert id="insertDeliveryInfo" parameterClass="box">
+    insert into PG.tb_order_delivery (
+		   order_code
+		  ,recipient_name
+		  ,recipient_phone_no
+		  ,zone_code
+		  ,address
+		  ,address_detail
+		  ,regist_date
+		) VALUES (
+		   #OrderCode#
+		  ,#BuyerName#
+		  ,#BuyerTel#
+		  ,#ZoneCode#
+		  ,#Address#
+		  ,#AddressDetail#
+		  ,now()
+		)
+  </insert>
+  <select id="getCardBin" parameterClass="String" resultClass="box">
+    select trim(fn_cd) as "fn_cd" , trim(issue_org) as "issue_org"
+      from tb_card_bin 
+     where card_bin = substr( #value:VARCHAR# , 1 , 6)
+  </select>
+  
+  <select id="selectSmsPgInfo" parameterClass="box" resultClass="box">
+    select MID, PG_CD, PG_MID, PG_LICENSE_KEY, AUTH_FLG
+    from tb_pg_info 
+    where mid=#mid# and svc_cd=#svccd# and svc_prdt_cd=#svcprdtcd# 
+    and use_cl='1' and date_format(now(),'%Y%m%d%H%i%s') between fr_dt and to_dt
+    order by pg_order asc
+    limit 1
+  </select>
+  
+  <select id="selectPgInfo" parameterClass="box" resultClass="box">
+    select
+    	a.mid, 
+    	a.pg_cd, 
+    	a.pg_mid, 
+    	a.pg_license_key, 
+    	a.auth_flg, 
+    	a.pg_key_in_cl, 
+    	b.limit_instmn
+    from tb_pg_info a, tb_merchant b 
+    where 1=1
+    and a.mid = b.mid
+    and a.mid=#mid#
+    and a.svc_cd=#svccd# 
+    and a.svc_prdt_cd=#svcprdtcd# 
+    and a.use_cl='1' 
+    and date_format(now(),'%Y%m%d%H%i%s') between a.fr_dt and a.to_dt
+    order by a.pg_order asc
+    limit 1
+  </select>
+</sqlMap>

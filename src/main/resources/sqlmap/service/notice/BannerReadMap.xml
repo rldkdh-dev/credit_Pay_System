@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+<!DOCTYPE sqlMap      
+  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Banner">
+
+	<select id="nicevan.pg.web.util.banner.select" parameterClass="box" resultClass="box">
+		select case when ptn_cl = '0' then txt else img_url end contents, link_url
+		from tb_banner
+		where target_sys = #target#
+		and position = #pos#
+		and img_idx = #imgIdx#
+		and to_char(sysdate, 'yyyymmdd') between fr_dt and to_dt
+		and use_cl = '0'
+	</select>
+</sqlMap>

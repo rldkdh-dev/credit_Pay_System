@@ -1,0 +1,46 @@
+#Oracle Driver
+#db.driverClassName=com.mysql.jdbc.Driver
+#db.driverClassName=core.log.jdbc.driver.MysqlDriver
+#mobil real server
+#db.url=jdbc:mysql://175.196.2.179:3306/infini?useUnicode=true&amp;characterEncoding=UTF8&amp;
+#db.url=jdbc:mysql://192.168.0.13:3306/comeonsotre
+#db.url=jdbc:mysql://175.196.2.231:3306/comeonsotre?useUnicode=true&amp;characterEncoding=UTF8&amp;
+#local
+
+#db.url=jdbc:mysql://175.196.4.16:3306/selldirect
+#db.username=infini
+#db.password=dlsvlsl11
+
+#server
+#db.url=jdbc:mysql://localhost:3306/selldirect
+#db.url=jdbc:mysql://211.174.58.147:3306/arspay
+#db.username=arspay
+#db.password=arspay
+
+
+
+############################################
+# DB Info(My Sql)
+db.driverClassName=com.mysql.jdbc.Driver
+#db.driverClassName=core.log.jdbc.driver.MysqlDriver
+#db.url=jdbc:oracle:thin:@192.168.0.28:1521:DEVEL
+db.url=jdbc:mysql://172.22.1.100:3306/PG
+db.username=infinisoft
+db.password=dlsvlsl11@
+#db.username=pg
+#db.password=develpg
+
+
+#ARS MSSql
+#debug\uc6a9\ub4dc\ub77c\uc774\ubc84
+#db3.driverClassName=core.log.jdbc.driver.Mssql2005Driver
+#\uc2e4\uc11c\ubc84\uc6a9\ub4dc\ub77c\uc774\ubc84
+#db3.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+#db3.url=jdbc:sqlserver://211.115.110.231;databaseName=ARSORDER;user=arsorder;password=wellosys7691!;
+#db3.username=arsorder
+#db3.password=wellosys7691!
+#ARS\uc2dc\uc2a4\ud15c\uc5d0 \uc811\uadfc\ubd88\uac00\ud560\uc2dc \uc0ac\uc6a9\ud558\ub294 \uc784\uc2dcDB
+#db3.driverClassName=core.log.jdbc.driver.MysqlDriver
+#db3.url=jdbc:mysql://211.115.110.205:3306/ars_db
+#db3.username=commonglobal
+#db3.password=commonglobal1207

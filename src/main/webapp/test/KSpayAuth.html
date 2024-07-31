@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>KSPayAuth</title>
+<meta http-equiv="Content-Type" content="text/html charset=euc-kr">
+<style type="text/css">
+	TABLE{font-size:9pt; line-height:160%;}
+	A {color:blueline-height:160% background-color:#E0EFFE}
+	INPUT{font-size:9pt}
+	SELECT{font-size:9pt}
+	.emp{background-color:#FDEAFE}
+	.white{background-color:#FFFFFF color:black border:1x solid white font-size: 9pt}
+</style>
+
+<script language="javascript">
+<!--
+/*각 인증방식별 카드정보 입력페이지로 이동*/
+function _submit(frm)
+{
+	for(var i=0 ; i<frm.certitype.length ; i++)
+	{
+		if(frm.certitype[i].checked == true)
+		{
+			if(frm.certitype[i].value == "I")
+			{
+				frm.action = "KSPayCreditFormI.jsp"
+				frm.submit() ;
+				return true ;
+			}
+			else
+			{
+				frm.action = "KSpayCreditFormMN.jsp"
+				frm.submit() ;
+				return true ;		
+			}
+		}
+	}
+
+}
+-->
+</script>
+</head>
+
+<body onload="" topmargin=0 leftmargin=0 marginwidth=0 marginheight=0 >
+<form name="KSpayAuth" method="post">
+<table border=0 width=0>
+<tr>
+<td align=center>
+<table width=320 cellspacing=0 cellpadding=0 border=0 bgcolor=#4F9AFF>
+<tr>
+<td>
+<table width=100% cellspacing=1 cellpadding=2 border=0>
+<tr bgcolor=#4F9AFF height=25>
+<td align=left><font color="#FFFFFF">
+KSPay 신용카드거래용 기본거래정보
+</font></td>
+</tr>
+<tr bgcolor=#FFFFFF>
+<td valign=top>
+<table width=100% cellspacing=0 cellpadding=2 border=0>
+<tr>
+<td align=left>
+<table>
+<tr>
+	<td>거래종류(certitype) :</td>
+	<td>
+	<INPUT TYPE="radio" NAME="certitype" value="M" checked>M-Visa3D인증승인<br> 신한,삼성,현대,롯데,하나(구.외환),하나(구.하나SK),농협,씨티<br>
+	<INPUT TYPE="radio" NAME="certitype" value="I">I-ISP인증승인<br> 비씨,국민,수협,전북,광주,제주,저축은행<br>
+	<INPUT TYPE="radio" NAME="certitype" value="N">N-일반인증승인<br><br>
+	<INPUT TYPE="radio" NAME="certitype" value="A">A-인증없는승인<br><br>
+	</td>
+</tr>
+<tr>
+	<td>상점ID(storeid) :</td>
+	<td><input type="text" name="storeid" value="2999199999" maxlength="10"></td>
+</tr>
+<tr>
+	<td>주문자명(ordername) :</td>
+	<td><input type="text" name="ordername" value="텔레토비" maxlength="25"></td>
+</tr>
+<tr>
+	<td>주문번호(ordernumber) :</td>
+	<td><input type="text" name="ordernumber" value="ttd-200406140251-456" maxlength="50"></td>
+</tr>
+<tr>
+	<td>금액(amount) :</td>
+	<td><input type="text" name="amount" value="1002" maxlength="9"></td>
+</tr>
+<tr>
+	<td>상품명(goodname) :</td>
+	<td><input type="text" name="goodname" value="당근12kg" maxlength="25"></td>
+</tr>
+<tr>
+	<td><font size="2" color="red">제공기간<br></font></td>
+	<td><input type="text" name="aaaa" size=21 value="YYYY/MM/DD~YYYY/MM/DD" maxlength="30"></td>
+</tr>
+<tr>
+	<td>주문자E-mail(email)<br><font size="2">(승인메일발송용)</font> :</td>
+	<td><input type="text" name="email" value="angra2p@nate.com" maxlength="25"></td>
+</tr>
+<tr>
+	<td>주문자휴대폰(phoneno)<br><font size="2"></font></td>
+	<td><input type="text" name="phoneno" value="0161111111" maxlength="25"></td>
+</tr>
+<tr>
+	<td>통화구분(currencytype) :</td>
+	<td>
+		<INPUT TYPE="radio" NAME="currencytype" value="WON" checked>WON-원화<br>
+		<INPUT TYPE="radio" NAME="currencytype" value="USD">USD-미화
+	</td>
+</tr>
+<tr>
+	<td>무이자할부구분(interesttype): </td>
+	<td><input type="text" name="interesttype" value="NONE" maxlength="25"></td>
+</tr>
+<tr>
+	<td></td><td>무이자 안함 "NONE"<br>3,6,9개월 무이자 "3:6:9"<br>전체월 무이자 "ALL"</td>
+</tr>
+<div>
+<tr><td colspan=2 align=center><HR></td></tr>
+<tr>
+<td colspan=2 align=center>
+	<input type="button" name="gotoFrm" size=40 value="승인요청Page로기본거래정보로넘김." onclick="_submit(this.form);">
+</td>
+</tr>
+
+</table></tr></table></td></tr></table></td></tr>
+</table></td></tr></table></td></tr></table></table>
+</form>
+</body>
+</html>

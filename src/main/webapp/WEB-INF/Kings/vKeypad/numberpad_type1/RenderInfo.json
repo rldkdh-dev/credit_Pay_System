@@ -1,0 +1,174 @@
+{
+    "type": "NUMBERPAD_type1",
+    "background": "background_numberPad.png",
+    "security": "numpad_security.png",
+    "fixedKeys": [
+        {
+            "character": "BACKSPACE",
+            "point": {
+                "x": 317,
+                "y": 48
+            },
+            "image": "numpad_b_backspace.png"
+        },
+        {
+            "character": "DONE",
+            "point": {
+                "x": 278,
+                "y": 88
+            },
+            "image": "numpad_b_enter.png"
+        },
+		{
+            "character": "CANCEL",
+            "point": {
+                "x": 298,
+                "y": 12
+            },
+            "image": "numpad_b_cancel.png"
+        },
+        {
+            "character": "DONE",
+            "point": {
+                "x": 5,
+                "y": 12
+            },
+            "image": "numpad_b_confirm.png"
+        },
+        {
+            "character": "empty",
+            "point": {
+                "x": 83,
+                "y": 48
+            },
+            "image": "numpad_security.png"
+        },
+        {
+            "character": "empty",
+            "point": {
+                "x": 200,
+                "y": 48
+            },
+            "image": "numpad_security.png"
+        },
+        {
+            "character": "empty",
+            "point": {
+                "x": 278,
+                "y": 48
+            },
+            "image": "numpad_security.png"
+        },
+        {
+            "character": "empty",
+            "point": {
+                "x": 44,
+                "y": 88
+            },
+            "image": "numpad_security.png"
+        },
+        {
+            "character": "empty",
+            "point": {
+                "x": 161,
+                "y": 88
+            },
+            "image": "numpad_security.png"
+        }
+		
+    ],
+    "layouts": [
+        {
+            name: "NORMAL",
+            randomGroups: [
+                {
+                    "type": "full",
+                    "points": [
+                        {
+                            "x": 5,
+                            "y": 48
+                        },
+                        {
+                            "x": 44,
+                            "y": 48
+                        },
+                        {
+                            "x": 122,
+                            "y": 48
+                        },
+                        {
+                            "x": 161,
+                            "y": 48
+                        },
+                        {
+                            "x": 239,
+                            "y": 48
+                        },
+                        {
+                            "x": 5,
+                            "y": 88
+                        },
+                        {
+                            "x": 83,
+                            "y": 88
+                        },
+                        {
+                            "x": 122,
+                            "y": 88
+                        },
+                        {
+                            "x": 200,
+                            "y": 88
+                        },
+                        {
+                            "x": 239,
+                            "y": 88
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "1",
+                            "image": "numpad_01.png"
+                        },
+                        {
+                            "character": "2",
+                            "image": "numpad_02.png"
+                        },
+                        {
+                            "character": "3",
+                            "image": "numpad_03.png"
+                        },
+                        {
+                            "character": "4",
+                            "image": "numpad_04.png"
+                        },
+                        {
+                            "character": "5",
+                            "image": "numpad_05.png"
+                        },
+                        {
+                            "character": "6",
+                            "image": "numpad_06.png"
+                        },
+                        {
+                            "character": "7",
+                            "image": "numpad_07.png"
+                        },
+                        {
+                            "character": "8",
+                            "image": "numpad_08.png"
+                        },
+                        {
+                            "character": "9",
+                            "image": "numpad_09.png"
+                        },
+                        {
+                            "character": "0",
+                            "image": "numpad_00.png"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

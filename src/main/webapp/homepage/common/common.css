@@ -1,0 +1,117 @@
+@charset "utf-8";
+
+/* reset */
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,.side_cate,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,blockquote{margin:0;padding:0; -webkit-text-size-adjust:none; word-break: keep-all;word-wrap: break-word;}
+body,table{font-size: 13px;font-family: 'Noto Sans Korean', sans-serif; color:#222;letter-spacing:0em;vertical-align: middle;}
+*{box-sizing: border-box;word-break: keep-all;word-wrap: break-word;}
+body{background:#fff;-webkit-text-size-adjust:none;width: 100%; height: auto;}
+fieldset,img,iframe,frame{border:0}
+
+legend,caption{overflow:hidden;position:absolute;font-size:0;line-height:0;visibility:hidden}
+h1,h2,h3,h4,h5,h6{font-size:1em}
+img{-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent;}
+img,input,textarea,fieldset{border:0 none;outline:none}
+ul,ol,dl,li,dt,dd{list-style:none;margin:0;padding:0;}
+em,address{font-style:normal}
+a{color:#373e40;text-decoration:none;outline: none;}
+a:link,a:visited,a:hover,a:active{text-decoration:none;outline: none;}
+strong{font-weight:bold}
+legend,hr,caption{display:none}
+table{border-spacing:0!important; text-align: center;}
+input,textarea,button,select,option{font-size: 14px;font-family: 'Noto Sans Korean', sans-serif; text-decoration: none;letter-spacing:0px; outline: 0;-webkit-tap-highlight-color:transparent;vertical-align: middle;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+select{text-indent:5px;}
+ul{text-decoration:none;}
+figure{margin:0;padding:0;}
+html{width: 100%; height: 100%;}
+
+/*common*/
+body{font-size: 12px; font-weight: 400; color: #666;line-height: 1.4;}
+
+/*input*/
+/*= Reset CSS 
+============= */
+html, body {border: 0; margin: 0; padding: 0;}
+body {min-width: 100%; min-height: 100%; color: #666;}
+.wrap{margin: 0 auto; max-width: 1000px;background-color: #fff;padding: 0 0 50px 0;}
+*{margin: 0; padding: 0; box-sizing: border-box;}
+h2{text-align: left; color: #222; font-size: 20px; float: left; width: 100%; margin: 30px 0; position: relative; line-height: 58px; font-weight: 400;}
+h2:before{content: ""; position: absolute; left: 50%; bottom: 0; width: 100px; height: 2px; background-color: #1e5dd2; margin-left: -50px;}
+h1{font-size: 20px;color: #333;text-align: left;font-weight: 500;padding-bottom: 30px;padding-left: 152px; background: url('innopay_logo.png') 0 0 no-repeat;background-size: auto 42px; line-height: 38px;}
+/*= Reset CSS End
+================= */
+
+/*btn*/
+.btn_wrap{padding: 0;width: 100%;text-align: center;}
+.btn_wrap:after{content:"";display:block;clear:both;}
+a.btn{font-size: 16px;height: 40px; line-height: 38px; text-align: center; display: inline-block;border:none; border-radius: 3px;font-weight: 500; -webkit-tap-highlight-color:transparent;color: #fff; width: 160px;vertical-align: middle;}
+/*btn*/
+
+
+:focus{outline: none;}
+.container{padding: 30px 20px 50px; max-width: 640px;box-sizing: border-box;}
+.table  {box-sizing: border-box!important; text-align: left!important;background-color: #fff!important;display: inline-block;width: 100%!important;}
+.table thead{display: inline;}
+.table tr{box-sizing: border-box!important; display:inline-block!important; width: 100%!important;}
+.table tr.unit{position: relative; padding: 20px 0 20px 0;border-bottom: 1px solid #eee;}
+.table td{width: auto; padding: 12px 4px 0 0!important; box-sizing: border-box!important; font-size:13px;text-align: left!important;color: #888;vertical-align:middle;display: inline-block;border: none!important;}
+.table td span.d_title{color: #c4c4c4; padding-right: 4px;}
+.table td.p_date{width:100%;padding: 0!important;}
+.table td.p_name{font-size: 16px; color: #333; width: 70%;padding-top: 0!important;padding-left: 0!important; font-weight: 500; }
+.table td.p_price{font-size: 18px; color: #1e5dd2; width: 29%; text-align: right!important;font-weight: 700;padding: 0!important; margin-top: -4px}
+.table td.p_price span{font-size: 12px; color: #1e5dd2;font-weight: 400;padding-left: 4px;}
+.table td.btn_td{position: absolute;right: 0; bottom: 16px; padding: 10px 0px 0 0!important; }
+.table th{margin-bottom: 10px; box-sizing: border-box!important; width: 25%!important; font-size:13px;font-weight:500!important;padding:10px 20px!important;background-color: #eee!important;text-align: center!important;color: #888;vertical-align:middle;display: inline-block;border-left: 1px solid #fff; border-bottom: none!important;}
+.table th:first-child{border: none!important;}
+table.dataTable thead .sorting:after{opacity: 0.6;}
+.row{width: 100%;padding: 0;margin: 0;}
+.col-sm-12{padding: 0;}
+.sticky{z-index: 100;
+	transition:all 0.5s ease;
+	-webkit-transition:all 0.5s ease; 
+	-o-transition:all 0.5s ease; 
+	-moz-transition:all 0.5s ease;}
+
+div.dataTables_wrapper div.dataTables_filter{float: right;}
+div.dataTables_wrapper div.dataTables_filter label{color: #999;}
+div.dataTables_wrapper div.dataTables_info {color: #999;float: left;}
+.table-bordered>thead>tr>td, .table-bordered>thead>tr>th{border-bottom-width:0;}
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td{border-color: #eee;vertical-align: middle;}
+.table-bordered>thead>tr>th, .table-bordered{border-color: #e4e4e4;vertical-align: middle;}
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after
+{display: block; bottom: 50%;margin-bottom: -10px;right: 12px;}
+table.dataTable thead .sorting::after{display: block;}
+.table-hover>tbody>tr:hover{background-color: #fff;}
+.btn_show{font-size: 12px; font-weight: 500;padding: 6px 20px; background-color: #999;color: #fff;border-radius: 3px;display: inline-block;text-align: center;}
+.btn_show:hover{background-color: #666;color: #fff;}
+.btn_show:focus{background-color: #666;color: #fff;}
+.pagination>li>a, .pagination>li>span{padding: 4px 10px; font-size:12px;}
+.input-sm{padding: 3px 8px;}
+.sorting_asc{color: #1e5dd2!important;}
+.sorting_desc{color: #f2a513!important;}
+
+@media only screen and (max-width: 767px){
+h1{display: inline-block;}
+.col-sm-5, .col-sm-6, .col-sm-7{width: 50%;float: left;}
+}
+@media only screen and (max-width: 640px){
+.table td, .table th{font-size: 12px;}
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after
+{display: block; bottom: 50%;margin-bottom: -9px;right: 8px;}
+}
+@media only screen and (max-width: 540px){
+.container{width: 100%; text-align: center;}
+div.dataTables_wrapper div.dataTables_info{text-align:left;float: left;}
+div.dataTables_wrapper div.dataTables_filter{text-align: center;}
+h1{font-size: 16px;color: #333;text-align: left;font-weight: 500;padding-bottom: 30px;padding-left: 116px; background: url('innopay_logo.png') 0 0 no-repeat;background-size: auto 32px; line-height: 28px;}
+.table th{padding:10px 16px 10px 6px!important; }
+.table td.normal{width: 80%!important;display: inline-block!important;padding-top: 0px!important;float: none;}
+.table td:nth-child(5){padding-top: 10px!important;}
+.table td.p_name{width: 100%!important;}
+.table td.p_price{width: 70%!important;text-align: left!important;padding-top:4px!important; }
+}
+@media only screen and (max-width: 370px){
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after
+{right: 4px;}
+}
+

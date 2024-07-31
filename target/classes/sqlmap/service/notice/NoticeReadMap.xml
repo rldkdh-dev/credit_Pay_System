@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+<!DOCTYPE sqlMap      
+  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="NoticeRead">
+
+	<cacheModel id="NoticeReadCache" type="LRU" readOnly="true" serialize="false">
+		<flushInterval hours="2"/>
+		<property name="cacheSize" value="1000"/>
+	</cacheModel>
+
+	<!-- 공지 리스트 가져오기  -->
+	<select id="notice.getRecentNoticeList" resultClass="shared.DataModel" cacheModel="NoticeReadCache">
+    select a.seq , a.head, a.reg_dt from 
+		 ( SELECT * FROM tb_inform
+		    where status='1' and inform_cd in ('00','06')
+		    order by seq DESC
+		 ) a
+	 limit 5
+	</select>
+</sqlMap>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CardISPMap">
+
+  <update id="updateISPInfoInit" parameterClass="src.mobile.DataModel">
+    update tb_isp_mobile
+    set 
+    result_cd = #send_code:VARCHAR#,
+    result_msg = #msg:VARCHAR#
+    where tid = #tid:VARCHAR#
+  </update>
+
+  <update id="updateISPInfo" parameterClass="src.mobile.DataModel">
+    update tb_isp_mobile
+    set session_key = #session_key:VARCHAR#,
+    enc_data = #enc_data:VARCHAR#,
+    kvp_code = #kvp_card_code:VARCHAR#,
+    result_cd = #send_code:VARCHAR#,
+    result_msg = #msg:VARCHAR#,
+		status = #status:VARCHAR#
+    where tid = #tid:VARCHAR#
+  </update>
+  
+  <insert id="insertISPInfo" parameterClass="src.mobile.DataModel">
+		insert into tb_isp_mobile
+		(tid, rid, ord_cp, fn_cd, non_interest_cl, instmnt_mon, req_dt, req_tm, status, goods_nm, goods_amt,
+		goods_cnt, moid, mid, mall_user_id, ord_nm, ord_auth_no, ord_tel, ord_email, parent_email,
+		ord_addr, ord_post, ord_ip, mall_ip, mall_reserved, return_url, retry_url, mall_result_fwd)
+		values
+		(#tid:VARCHAR#, #rid:VARCHAR#, #ord_cp:VARCHAR#, #fn_cd:VARCHAR#, #non_interest_cl#, #instmnt_mon:VARCHAR#, #req_dt:VARCHAR#, #req_tm:VARCHAR#, #status:VARCHAR#,#goods_nm:VARCHAR#,#goods_amt:VARCHAR#,
+		#goods_cnt:VARCHAR#, #moid:VARCHAR#, #mid:VARCHAR#, #mall_user_id:VARCHAR#, #ord_nm:VARCHAR#, #ord_auth_no:VARCHAR#, #ord_tel:VARCHAR#, #ord_email:VARCHAR#, #parent_email:VARCHAR#,
+		#ord_addr:VARCHAR#, #ord_post:VARCHAR#, #ord_ip:VARCHAR#, #mall_ip:VARCHAR#, #mall_reserved:VARCHAR#, #return_url:VARCHAR#, #retry_url:VARCHAR#, #mall_result_fwd:VARCHAR#)
+  </insert>
+  
+</sqlMap>

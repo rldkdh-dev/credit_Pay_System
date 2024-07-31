@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+                        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MerchantInfoRead">
+
+  <typeAlias alias="DataModel" type="mobile.DataModel"/>
+  
+  <select id="getPgInfoMap" parameterClass="kr.co.infinisoft.pg.document.Box" resultClass="kr.co.infinisoft.pg.document.Box">
+  	select pg_mid, pg_license_key, pg_cd from tb_pg_info
+  		where date_format(now(),'%Y%m%d') between fr_dt and to_dt and use_cl='1' and mid = #mid#
+  		<isNotEmpty property="auth_flg">
+            and auth_flg=#auth_flg# 
+        </isNotEmpty>
+        <isNotEmpty property="svc_cd">
+            and svc_cd=#svc_cd# 
+        </isNotEmpty> 
+        <isNotEmpty property="svc_prdt_cd">
+            and svc_prdt_cd=#svc_prdt_cd# 
+        </isNotEmpty>
+        <isNotEmpty property="pg_mid">
+            and pg_mid=#pg_mid# 
+        </isNotEmpty>
+        order by pg_cd asc
+        limit 1
+  </select>
+
+  <select id="getLogo" parameterClass="String" resultClass="String"><!-- cacheModel="MerchantInfoReadCache"-->
+      select ifnull(max(pay_logo), 'x')
+      from tb_merchant
+      where mid = #usr_id:VARCHAR#
+  </select>
+
+  <!-- Select with no parameters using the result map for Account class. -->
+  <select id="getMIDList" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MerchantInfoReadCache"-->
+    <![CDATA[
+      select mid as "mid", ifnull(mid_nm, co_nm) as "co_nm"
+      from tb_merchant
+      where 1=1
+    ]]>
+      <isEqual prepend="AND" property="id_cl" compareValue="0"> mid = #usr_id:VARCHAR#</isEqual>
+      <isEqual prepend="AND" property="id_cl" compareValue="1"> gid = #usr_id:VARCHAR#</isEqual>
+      <isEqual prepend="AND" property="id_cl" compareValue="2"> aid = #usr_id:VARCHAR#</isEqual>
+      and use_cl = '0'
+  </select>
+  
+  <select id="getMIDList2" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MerchantInfoReadCache"-->
+      select mid as "mid", ifnull(mid_nm, co_nm) as "co_nm"
+      from tb_merchant
+      where use_cl = '0'
+      and gid = #gid:VARCHAR#
+      union all
+      select mid as "mid", ifnull(mid_nm, co_nm) as "co_nm"
+      from tb_merchant
+      where use_cl = '0'
+      and aid = #aid:VARCHAR#
+  </select>
+  
+  <select id="getAcquReqMIDList" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MerchantInfoReadCache"-->
+    <![CDATA[
+      select mid as "mid", ifnull(mid_nm, co_nm) as "co_nm"
+      from tb_merchant
+    ]]>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="0"> mid = #usr_id:VARCHAR#</isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="1"> gid = #usr_id:VARCHAR#</isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="2"> aid = #usr_id:VARCHAR#</isEqual>
+      and use_cl = '0'
+      and acqu_cl = '1'
+  </select>
+    
+  <select id="getDirectMemMIDList" parameterClass="DataModel" resultClass="DataModel"><!-- cacheModel="MerchantInfoReadCache"-->
+    <![CDATA[
+      select mid as "mid", ifnull(mid_nm, co_nm) as "co_nm"
+      from tb_merchant
+    ]]>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="0"> mid = #usr_id:VARCHAR#</isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="1"> gid = #usr_id:VARCHAR#</isEqual>
+      <isEqual prepend="WHERE" property="id_cl" compareValue="2"> aid = #usr_id:VARCHAR#</isEqual>
+      and use_cl = '0'
+      and join_type = '0'
+  </select>
+      
+  <select id="getMIDInfo" parameterClass="String" resultClass="DataModel">
+      select a.mid as "mid", a.gid as "gid", a.aid as "aid", a.co_no as "co_no", a.co_nm as "co_nm", a.co_cl as "co_cl", a.host_cl as "host_cl", a.boss_nm as "boss_nm", 
+             a.use_cl as "use_cl", a.post_no as "post_no", a.addr_no1 as "addr_no1", a.addr_no2 as "addr_no2", a.bs_kind as "bs_kind", a.gd_kind as "gd_kind",
+             a.main_goods as "main_goods", fn_phone_number(replace(a.tel_no,'-','')) as "tel_no", a.fax_no as "fax_no", a.email as "email", a.grade as "grade", a.cont_dt as "cont_dt", a.join_type as "join_type", 
+             a.acqu_cl as "acqu_cl", a.acqu_day as "acqu_day", a.pay_id_cl as "pay_id_cl", a.merchant_type as "merchant_type", a.tax_iss_cycle as "tax_iss_cycle", 
+             a.limit_cl as "limit_cl", a.card_use as "card_use", a.card_block as "card_block", a.cc_cl as "cc_cl", a.cc_part_cl as "cc_part_cl", a.pay_inform as "pay_inform", 
+             a.cash_inform as "cash_inform", a.rcpt_cl as "rcpt_cl", a.cash_rcpt_auto_cl as "cash_rcpt_auto_cl", a.can_pw as "can_pw", a.mid_url as "mid_url", 
+             a.pay_logo as "pay_logo", a.slogan as "slogan", a.dept as "dept", a.emp0 as "emp0", a.emp1 as "emp1", a.emp2 as "emp2", a.cont_emp as "cont_emp", 
+             a.cont_emp_email as "cont_emp_email", a.cont_emp_tel as "cont_emp_tel", a.cont_emp_cp as "cont_emp_cp", a.vat_mark as "vat_mark",
+             a.tech_emp as "tech_emp", a.tech_emp_email as "tech_emp_email", a.tech_emp_tel as "tech_emp_tel", a.tech_emp_cp as "tech_emp_cp",
+             a.settlmnt_emp as "settlmnt_emp", a.settlmnt_emp_email as "settlmnt_emp_email", a.settlmnt_emp_tel as "settlmnt_emp_tel", a.settlmnt_emp_cp as "settlmnt_emp_cp", a.tax_email as "tax_email",
+             a.bank_cd as "bank_cd", fn_nm_code1('bank_cd', a.bank_cd) as "bank_nm", a.accnt_no as "accnt_no", a.accnt_nm as "accnt_nm", a.sign_nm as "sign_nm", a.mid_nm as "mid_nm", a.auth_flg as "auth_flg",
+             ifnull(b.shop_vat_yn,'Y') as "shop_vat_yn"
+      from tb_merchant a left outer join tb_merchant_innopay b on a.mid = b.mid
+      where 1=1
+      and a.mid = #MID:VARCHAR#
+  </select>
+  
+  <select id="getAllID" parameterClass="DataModel" resultClass="DataModel">
+      <isEqual prepend="SELECT" property="idCl" compareValue="0">
+        co_no as "co_no", gid as "gid", aid as "aid", mid as "mid" from tb_merchant where mid = #id:VARCHAR#
+      </isEqual>
+      <isEqual prepend="SELECT" property="idCl" compareValue="1">
+        co_no as "co_no", gid as "gid", 'x' as "aid", 'x' as "mid" from tb_id_group where gid = #id:VARCHAR#
+      </isEqual>
+      <isEqual prepend="SELECT" property="idCl" compareValue="2">
+        co_no as "co_no", 'x' as "gid", aid as "aid", 'x' as "mid" from tb_id_account where aid = #id:VARCHAR#
+      </isEqual>
+  </select>
+  
+  <select id="getMIDLimitInfo" parameterClass="String" resultClass="DataModel">
+    select ifnull(a.amt_limit, 0) as "limit_amt", ifnull(a.amt_limit, 0) - ifnull(b.accu_val, 0) as "remain_amt", ifnull(b.accu_val, 0) as "exhaust"
+    from tb_limit a left outer join tb_limit_accumulate b on b.limit_seq = a.seq and b.target_date = to_char(sysdate, 'yyyymm') and b.limit_cl = '0'
+    where a.limit_id = #value:VARCHAR#
+    and a.svc_cd = '99' 
+    and a.svc_prdt_cd = '01' 
+    and a.limit_type = '9999' 
+    and a.limit_cd = '99' 
+    and a.state_cd = '99' 
+    and date_format(now(), '%Y%m%d') between a.fr_dt and a.to_dt
+  </select>
+
+ <select id="getCardBinList" parameterClass="String" resultClass="DataModel">
+    select trim(fn_cd) as "fn_cd" , trim(issue_org) as "issue_org"
+    from tb_card_bin 
+    where card_bin = substr( #value:VARCHAR# , 1 , 6)
+  </select>
+
+    <update id="insertBankAuthM" parameterClass="HashMap">
+        INSERT INTO tb_bank_auth_m (tid, hd_pi, hd_ep_type, bankpay_code, callbackparam1,
+                                    callbackparam2,callbackparam3,callbackparam4,callbackparam5, reg_dt)
+        VALUES ( #tid#, #hd_pi#, #hd_ep_type#, #bankpay_code#, #callbackparam1#, 
+                 #callbackparam1#, #callbackparam1#, #callbackparam1#, #callbackparam1#, date_format(now(),'%Y%m%d%H%i%s') )
+    </update>
+    <select id="selectBankAuthM" parameterClass="String" resultClass="DataModel">
+        select tid, hd_pi, hd_ep_type, bankpay_code, callbackparam1,
+               callbackparam2, callbackparam3, callbackparam4, callbackparam5, reg_dt
+        from tb_bank_auth_m
+        where tid = #tid#
+    </select>
+    
+    <select id="getVbankFeeInfo" parameterClass="kr.co.infinisoft.pg.document.Box" resultClass="kr.co.infinisoft.pg.document.Box">
+  		select case 
+          		when fee_type = '3' then fee
+          		when fee_type = '2' then min_fee
+        	   end as "fee"
+		from tb_settlmnt_fee
+		where id = #mid#
+		and svc_cd = #svc_cd#
+		and fn_cd = #bank_cd#
+		and date_format(now(), '%Y%m%d') between fr_dt and to_dt
+  	</select>
+</sqlMap>

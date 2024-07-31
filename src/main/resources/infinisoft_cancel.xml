@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<message-list>
+	<!-- Header 전문 -->
+	<!-- Header는 'ID','version','length'는 필수 필드이며  이름이 정확히 일치(대소문자 포함) 해야합니다. -->
+	<!-- Header+body 전문이 완성되었을시, 모든 Column name 는 유일해야 합니다. -->
+	<!-- 모든 Column name 은 대소문자를 구분합니다. -->
+	<header>
+		<!-- 전문공통  -->
+		<column	name="Version"		mode="AN"	size="5"	required="Y"	encrypt="N"	description="버전" />
+		<column	name="ID"			mode="AN"	size="5"	required="Y"	encrypt="N"	description="전문ID" />
+		<column name="EdiDate"      mode="N"    size="14"   required="N" encrypt="Y"    description="전문생성일시"/>
+		<column	name="Length"		mode="N"	size="6"	required="Y"	encrypt="N"	description="전문길이" />
+		<column	name="ErrorCD"		    mode="AN"	size="4"	required="Y"	encrypt="N"	description="에러코드"/>
+		<column	name="ErrorMSG"		    mode="AN"	size="100"	required="Y"	encrypt="N"	description="에러메세지"/>
+		<column name="MID"          mode="AN"   size="10"   required="N" encrypt="Y"    description="상점아이디"/>
+		<column name="CancelPwd"		mode="AN"	size="20"	required="Y"	encrypt="N"	description="취소패스워드" />
+        <column name="SUB_ID"		mode="AN"	size="20"	required="N"	encrypt="Y"	description="SUB ID"/>
+		
+	</header>
+
+	<message id="WCC01" version="NPG01" description="취소요청">
+		<column	name="PayMethod"		mode="AN"	size="10"	required="Y"	encrypt="N"	description="지불수단" />
+		<column	name="TID"				mode="AN"	size="30"	required="Y"	encrypt="N"	description="TID" />
+		<column	name="CancelAmt"		mode="N"	size="12"	required="Y"	encrypt="N"	description="취소 금액" />
+		<column	name="CancelMSG"		mode="AN"	size="100"	required="Y"	encrypt="N"	description="취소사유" />
+		<!-- 취소 History -->
+		<column	name="CancelIP"			mode="AN"	size="15"	required="N"	encrypt="N"	description="취소IP" />
+		<column	name="CancelID"			mode="AN"	size="20"	required="N"	encrypt="N"	description="취소요청자ID" />
+		<column	name="CancelName"		mode="AN"	size="30"	required="N"	encrypt="N"	description="취소요청자명" />
+		<column	name="ServerName"		mode="AN"	size="10"	required="N"	encrypt="N"	description="작업 서버명" />
+		<column name="NetCancelCode"    mode="AN"   size="1"    required="N"    encrypt="N" description="망상취소구분"/>
+		<column name="RefundAcctNo"		mode="AN"	size="16"	required="N"	encrypt="N" description="환불계좌번호"/>
+		<column name="RefundBankCd"		mode="AN"   size="3"	required="N"    encrypt="N" description="환불은행코드"/>
+		<column name="RefundAcctNm"		mode="AN"   size="10"   required="N"	encrypt="N" description="환불계좌주명"/>
+		<column name="ForceCancelCode"  mode="AN"   size="1"    required="N"    encrypt="N" description="강제취소구분"/>
+		<column name="PartialCancelCode" mode="AN"	size="1"	required="N"	encrypt="N"	description="부분취소구분"/>
+	</message>
+
+	<message id="WCC02" version="NPG01" description="취소결과">
+		<column	name="PayMethod"		mode="AN"	size="10"	required="Y"	encrypt="N"	description="지불수단" />
+		<column	name="CancelAmt"		mode="N"	size="12"	required="Y"	encrypt="N"	description="취소 금액" />
+		<column	name="CancelDate"		mode="AN"	size="8"	required="Y"	encrypt="N"	description="취소일자" />
+		<column	name="CancelTime"		mode="AN"	size="6"	required="Y"	encrypt="N"	description="취소시간" />
+		<column	name="CancelNum"		mode="AN"	size="15"	required="Y"	encrypt="N"	description="취소번호" />
+		<column	name="ResultCode"		mode="AN"	size="4"	required="Y"	encrypt="N"	description="결과코드" />
+		<column	name="ResultMsg"		mode="AN"	size="100"	required="Y"	encrypt="N"	description="결과메시지" />
+		<column name="MOID"         mode="AN"   size="40"   required="Y" encrypt="N"    description="상품주문번호"/>
+	</message>
+
+</message-list>

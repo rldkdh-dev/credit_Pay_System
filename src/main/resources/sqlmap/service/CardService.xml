@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+                        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="CardService">
+    <typeAlias alias="DataModel" type="mobile.DataModel"/>
+
+    <select id="cardservice.select.tb_code.cardcode" resultClass="HashMap">
+        select code1, code2, desc1 from PG.tb_code where code_cl='0002' and use_cl='0' order by order_no
+    </select>
+    
+    <select id="cardservice.select.tb_join_info.mid" parameterClass="String" resultClass="HashMap">
+        select trans_cl, fn_cd, fn_no from PG.tb_join_info  
+            where mid=#mid# and svc_cd='01' and date_format(now(),'%Y%m%d') between fr_dt and to_dt
+            order by fn_cd
+    </select>
+    
+    <!-- 국내카드 -->
+    <select id="cardservice.select.tb_pg_info.mid_auth" parameterClass="String" resultClass="HashMap">
+        select pg_order, pg_cd, pg_key_in_cl, ifnull(block_card,'') block_card, ifnull(over_card,'') over_card, pg_license_key, pg_mid
+            from PG.tb_pg_info 
+            where mid=#mid# and svc_cd='01' and date_format(now(),'%Y%m%d') between fr_dt and to_dt
+              and auth_flg='02' and svc_prdt_cd in ('08') and ifnull(over_card,'')=''
+            order by pg_order limit 1
+    </select>
+    <!-- 해외카드 -->
+    <select id="cardservice.select.tb_pg_info.mid_auth.over" parameterClass="String" resultClass="HashMap">
+        select pg_order, pg_cd, pg_key_in_cl, ifnull(block_card,'') block_card, ifnull(over_card,'') over_card, pg_license_key, pg_mid
+            from PG.tb_pg_info 
+            where mid=#mid# and svc_cd='01' and date_format(now(),'%Y%m%d') between fr_dt and to_dt
+              and auth_flg='02' and svc_prdt_cd in ('08') and ifnull(over_card,'')!=''
+            order by pg_order
+    </select>
+    <select id="cardservice.select.tb_pg_info.mid_keyin" parameterClass="String" resultClass="HashMap">
+        select pg_order, pg_cd, pg_key_in_cl, ifnull(block_card,'') block_card, ifnull(over_card,'') over_card, pg_license_key, pg_mid
+            from PG.tb_pg_info 
+            where mid=#mid# and svc_cd='01' and date_format(now(),'%Y%m%d') between fr_dt and to_dt
+              and auth_flg='01' and svc_prdt_cd in ('01','03')
+            order by pg_order
+    </select>
+    
+    <!-- select van block card -->
+    <select id="cardservice.select.tb_merchant.card_block" parameterClass="String" resultClass="HashMap">
+        select ifnull(card_use,'') card_use, ifnull(card_block,'') card_block from PG.tb_merchant 
+            where mid=#mid# and use_cl!='2'
+    </select>
+    
+    <select id="cardservice.select.tb_merchant.limit_instmn" parameterClass="String" resultClass="String">
+        select ifnull(limit_instmn,'') as "limit_instmn" from PG.tb_merchant where mid=#mid#
+    </select>
+    <!-- 카드사 무이자 이벤트 조회 -->
+    <select id="cardservice.select.tb_event_card.van.instmn" parameterClass="String" resultClass="HashMap">
+        select tc.fn_cd as "fn_cd", cast(tc.event_amt as signed) as "event_amt", tc.instmn_mm as "instmn_mm",
+               tc.event_fr_dt as "event_fr_dt", tc.event_to_dt as "event_to_dt", tc.event_cl as "event_cl" 
+            from PG.tb_event_card tc inner join 
+                 (select * from PG.tb_join_info where svc_cd='01' and trans_cl='2' limit 1) tj
+                 on tc.fn_no = tj.fn_no
+        where tc.pg_cd='00' and tj.mid = #mid# and date_format(now(), '%Y%m%d') between tc.event_fr_dt and tc.event_to_dt
+        order by tc.fn_cd
+    </select>
+    <!-- PG사 무이자 이벤트 조회 -->
+    <select id="cardservice.select.tb_event_card.pg.instmn" parameterClass="HashMap" resultClass="HashMap">
+        select tc.fn_cd as "fn_cd", cast(tc.event_amt as signed) as "event_amt", tc.instmn_mm as "instmn_mm",
+               tc.event_fr_dt as "event_fr_dt", tc.event_to_dt as "event_to_dt", tc.event_cl as "event_cl" 
+            from PG.tb_event_card tc 
+        where tc.pg_cd=#pg_cd# and tc.fn_cd=#fn_cd# and date_format(now(), '%Y%m%d') between tc.event_fr_dt and tc.event_to_dt
+        limit 1
+    </select>
+    <!-- 가맹점 무이자 이벤트 조회 -->
+    <select id="cardservice.select.tb_event_merchant.pg.instmn" parameterClass="HashMap" resultClass="HashMap">
+        select tc.fn_cd as "fn_cd", cast(tc.event_amt as signed) as "event_amt", tc.instmn_mm as "instmn_mm",
+               tc.event_fr_dt as "event_fr_dt", tc.event_to_dt as "event_to_dt", tc.event_cd as "event_cl" 
+            from PG.tb_event_merchant tc 
+        where tc.mid=#mid# and tc.fn_cd=#fn_cd# and date_format(now(), '%Y%m%d') between tc.event_fr_dt and tc.event_to_dt
+        limit 1
+    </select>
+</sqlMap>
+                        

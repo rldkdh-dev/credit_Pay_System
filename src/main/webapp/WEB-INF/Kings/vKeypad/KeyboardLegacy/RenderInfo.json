@@ -1,0 +1,1126 @@
+{
+    "type": "KEYBOARD_LEGACY",
+    "background": "Background.png",
+    "security": "Security.png",
+    "fixedKeys": [
+        {
+            "character": "CLEAR",
+            "point": {
+                "x": 14,
+                "y": 21
+            },
+            "image": "Clear.png"
+        },
+        {
+            "character": "BACKSPACE",
+            "point": {
+                "x": 266,
+                "y": 21
+            },
+            "image": "Backspace.png"
+        },
+        {
+            "character": "CANCEL",
+            "point": {
+                "x": 308,
+                "y": 21
+            },
+            "image": "Cancel.png"
+        },
+        {
+            "character": "DONE",
+            "point": {
+                "x": 266,
+                "y": 197
+            },
+            "image": "Done.png"
+        }
+    ],
+    "layouts": [
+        {
+            "name": "LOWER",
+            "fixedKeys": [
+                {
+                    "character": "CHANGE_LAYOUT",
+                    "point": {
+                        "x": 210,
+                        "y": 21
+                    },
+                    "image": "LayoutLower.png"
+                }
+            ],
+            "randomGroups": [
+                {
+                    "type": "insertShift",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 68
+                        },
+                        {
+                            "x": 42,
+                            "y": 68
+                        },
+                        {
+                            "x": 70,
+                            "y": 68
+                        },
+                        {
+                            "x": 98,
+                            "y": 68
+                        },
+                        {
+                            "x": 126,
+                            "y": 68
+                        },
+                        {
+                            "x": 154,
+                            "y": 68
+                        },
+                        {
+                            "x": 182,
+                            "y": 68
+                        },
+                        {
+                            "x": 210,
+                            "y": 68
+                        },
+                        {
+                            "x": 238,
+                            "y": 68
+                        },
+                        {
+                            "x": 266,
+                            "y": 68
+                        },
+                        {
+                            "x": 294,
+                            "y": 68
+                        },
+                        {
+                            "x": 322,
+                            "y": 68
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "1",
+                            "image": "1.png"
+                        },
+                        {
+                            "character": "2",
+                            "image": "2.png"
+                        },
+                        {
+                            "character": "3",
+                            "image": "3.png"
+                        },
+                        {
+                            "character": "4",
+                            "image": "4.png"
+                        },
+                        {
+                            "character": "5",
+                            "image": "5.png"
+                        },
+                        {
+                            "character": "6",
+                            "image": "6.png"
+                        },
+                        {
+                            "character": "7",
+                            "image": "7.png"
+                        },
+                        {
+                            "character": "8",
+                            "image": "8.png"
+                        },
+                        {
+                            "character": "9",
+                            "image": "9.png"
+                        },
+                        {
+                            "character": "0",
+                            "image": "0.png"
+                        }
+                    ]
+                },
+                {
+                    "type": "insert",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 111
+                        },
+                        {
+                            "x": 42,
+                            "y": 111
+                        },
+                        {
+                            "x": 70,
+                            "y": 111
+                        },
+                        {
+                            "x": 98,
+                            "y": 111
+                        },
+                        {
+                            "x": 126,
+                            "y": 111
+                        },
+                        {
+                            "x": 154,
+                            "y": 111
+                        },
+                        {
+                            "x": 182,
+                            "y": 111
+                        },
+                        {
+                            "x": 210,
+                            "y": 111
+                        },
+                        {
+                            "x": 238,
+                            "y": 111
+                        },
+                        {
+                            "x": 266,
+                            "y": 111
+                        },
+                        {
+                            "x": 294,
+                            "y": 111
+                        },
+                        {
+                            "x": 322,
+                            "y": 111
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "ㅂ",
+                            "image": "LowerQ.png"
+                        },
+                        {
+                            "character": "ㅈ",
+                            "image": "LowerW.png"
+                        },
+                        {
+                            "character": "ㄷ",
+                            "image": "LowerE.png"
+                        },
+                        {
+                            "character": "ㄱ",
+                            "image": "LowerR.png"
+                        },
+                        {
+                            "character": "t",
+                            "image": "LowerT.png"
+                        },
+                        {
+                            "character": "y",
+                            "image": "LowerY.png"
+                        },
+                        {
+                            "character": "u",
+                            "image": "LowerU.png"
+                        },
+                        {
+                            "character": "i",
+                            "image": "LowerI.png"
+                        },
+                        {
+                            "character": "o",
+                            "image": "LowerO.png"
+                        },
+                        {
+                            "character": "p",
+                            "image": "LowerP.png"
+                        }
+                    ]
+                },
+                {
+                    "type": "insert",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 154
+                        },
+                        {
+                            "x": 42,
+                            "y": 154
+                        },
+                        {
+                            "x": 70,
+                            "y": 154
+                        },
+                        {
+                            "x": 98,
+                            "y": 154
+                        },
+                        {
+                            "x": 126,
+                            "y": 154
+                        },
+                        {
+                            "x": 154,
+                            "y": 154
+                        },
+                        {
+                            "x": 182,
+                            "y": 154
+                        },
+                        {
+                            "x": 210,
+                            "y": 154
+                        },
+                        {
+                            "x": 238,
+                            "y": 154
+                        },
+                        {
+                            "x": 266,
+                            "y": 154
+                        },
+                        {
+                            "x": 294,
+                            "y": 154
+                        },
+                        {
+                            "x": 322,
+                            "y": 154
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "a",
+                            "image": "LowerA.png"
+                        },
+                        {
+                            "character": "s",
+                            "image": "LowerS.png"
+                        },
+                        {
+                            "character": "d",
+                            "image": "LowerD.png"
+                        },
+                        {
+                            "character": "f",
+                            "image": "LowerF.png"
+                        },
+                        {
+                            "character": "g",
+                            "image": "LowerG.png"
+                        },
+                        {
+                            "character": "h",
+                            "image": "LowerH.png"
+                        },
+                        {
+                            "character": "j",
+                            "image": "LowerJ.png"
+                        },
+                        {
+                            "character": "k",
+                            "image": "LowerK.png"
+                        },
+                        {
+                            "character": "l",
+                            "image": "LowerL.png"
+                        }
+                    ]
+                },
+                {
+                    "type": "insert",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 197
+                        },
+                        {
+                            "x": 42,
+                            "y": 197
+                        },
+                        {
+                            "x": 70,
+                            "y": 197
+                        },
+                        {
+                            "x": 98,
+                            "y": 197
+                        },
+                        {
+                            "x": 126,
+                            "y": 197
+                        },
+                        {
+                            "x": 154,
+                            "y": 197
+                        },
+                        {
+                            "x": 182,
+                            "y": 197
+                        },
+                        {
+                            "x": 210,
+                            "y": 197
+                        },
+                        {
+                            "x": 238,
+                            "y": 197
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "z",
+                            "image": "LowerZ.png"
+                        },
+                        {
+                            "character": "x",
+                            "image": "LowerX.png"
+                        },
+                        {
+                            "character": "c",
+                            "image": "LowerC.png"
+                        },
+                        {
+                            "character": "v",
+                            "image": "LowerV.png"
+                        },
+                        {
+                            "character": "b",
+                            "image": "LowerB.png"
+                        },
+                        {
+                            "character": "n",
+                            "image": "LowerN.png"
+                        },
+                        {
+                            "character": "m",
+                            "image": "LowerM.png"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "UPPER",
+            "fixedKeys": [
+                {
+                    "character": "CHANGE_LAYOUT",
+                    "point": {
+                        "x": 210,
+                        "y": 21
+                    },
+                    "image": "LayoutUpper.png"
+                }
+            ],
+            "randomGroups": [
+                {
+                    "type": "insertShift",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 68
+                        },
+                        {
+                            "x": 42,
+                            "y": 68
+                        },
+                        {
+                            "x": 70,
+                            "y": 68
+                        },
+                        {
+                            "x": 98,
+                            "y": 68
+                        },
+                        {
+                            "x": 126,
+                            "y": 68
+                        },
+                        {
+                            "x": 154,
+                            "y": 68
+                        },
+                        {
+                            "x": 182,
+                            "y": 68
+                        },
+                        {
+                            "x": 210,
+                            "y": 68
+                        },
+                        {
+                            "x": 238,
+                            "y": 68
+                        },
+                        {
+                            "x": 266,
+                            "y": 68
+                        },
+                        {
+                            "x": 294,
+                            "y": 68
+                        },
+                        {
+                            "x": 322,
+                            "y": 68
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "1",
+                            "image": "1.png"
+                        },
+                        {
+                            "character": "2",
+                            "image": "2.png"
+                        },
+                        {
+                            "character": "3",
+                            "image": "3.png"
+                        },
+                        {
+                            "character": "4",
+                            "image": "4.png"
+                        },
+                        {
+                            "character": "5",
+                            "image": "5.png"
+                        },
+                        {
+                            "character": "6",
+                            "image": "6.png"
+                        },
+                        {
+                            "character": "7",
+                            "image": "7.png"
+                        },
+                        {
+                            "character": "8",
+                            "image": "8.png"
+                        },
+                        {
+                            "character": "9",
+                            "image": "9.png"
+                        },
+                        {
+                            "character": "0",
+                            "image": "0.png"
+                        }
+                    ]
+                },
+                {
+                    "type": "insert",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 111
+                        },
+                        {
+                            "x": 42,
+                            "y": 111
+                        },
+                        {
+                            "x": 70,
+                            "y": 111
+                        },
+                        {
+                            "x": 98,
+                            "y": 111
+                        },
+                        {
+                            "x": 126,
+                            "y": 111
+                        },
+                        {
+                            "x": 154,
+                            "y": 111
+                        },
+                        {
+                            "x": 182,
+                            "y": 111
+                        },
+                        {
+                            "x": 210,
+                            "y": 111
+                        },
+                        {
+                            "x": 238,
+                            "y": 111
+                        },
+                        {
+                            "x": 266,
+                            "y": 111
+                        },
+                        {
+                            "x": 294,
+                            "y": 111
+                        },
+                        {
+                            "x": 322,
+                            "y": 111
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "Q",
+                            "image": "UpperQ.png"
+                        },
+                        {
+                            "character": "W",
+                            "image": "UpperW.png"
+                        },
+                        {
+                            "character": "E",
+                            "image": "UpperE.png"
+                        },
+                        {
+                            "character": "R",
+                            "image": "UpperR.png"
+                        },
+                        {
+                            "character": "T",
+                            "image": "UpperT.png"
+                        },
+                        {
+                            "character": "Y",
+                            "image": "UpperY.png"
+                        },
+                        {
+                            "character": "U",
+                            "image": "UpperU.png"
+                        },
+                        {
+                            "character": "I",
+                            "image": "UpperI.png"
+                        },
+                        {
+                            "character": "O",
+                            "image": "UpperO.png"
+                        },
+                        {
+                            "character": "P",
+                            "image": "UpperP.png"
+                        }
+                    ]
+                },
+                {
+                    "type": "insert",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 154
+                        },
+                        {
+                            "x": 42,
+                            "y": 154
+                        },
+                        {
+                            "x": 70,
+                            "y": 154
+                        },
+                        {
+                            "x": 98,
+                            "y": 154
+                        },
+                        {
+                            "x": 126,
+                            "y": 154
+                        },
+                        {
+                            "x": 154,
+                            "y": 154
+                        },
+                        {
+                            "x": 182,
+                            "y": 154
+                        },
+                        {
+                            "x": 210,
+                            "y": 154
+                        },
+                        {
+                            "x": 238,
+                            "y": 154
+                        },
+                        {
+                            "x": 266,
+                            "y": 154
+                        },
+                        {
+                            "x": 294,
+                            "y": 154
+                        },
+                        {
+                            "x": 322,
+                            "y": 154
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "A",
+                            "image": "UpperA.png"
+                        },
+                        {
+                            "character": "S",
+                            "image": "UpperS.png"
+                        },
+                        {
+                            "character": "D",
+                            "image": "UpperD.png"
+                        },
+                        {
+                            "character": "F",
+                            "image": "UpperF.png"
+                        },
+                        {
+                            "character": "G",
+                            "image": "UpperG.png"
+                        },
+                        {
+                            "character": "H",
+                            "image": "UpperH.png"
+                        },
+                        {
+                            "character": "J",
+                            "image": "UpperJ.png"
+                        },
+                        {
+                            "character": "K",
+                            "image": "UpperK.png"
+                        },
+                        {
+                            "character": "L",
+                            "image": "UpperL.png"
+                        }
+                    ]
+                },
+                {
+                    "type": "insert",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 197
+                        },
+                        {
+                            "x": 42,
+                            "y": 197
+                        },
+                        {
+                            "x": 70,
+                            "y": 197
+                        },
+                        {
+                            "x": 98,
+                            "y": 197
+                        },
+                        {
+                            "x": 126,
+                            "y": 197
+                        },
+                        {
+                            "x": 154,
+                            "y": 197
+                        },
+                        {
+                            "x": 182,
+                            "y": 197
+                        },
+                        {
+                            "x": 210,
+                            "y": 197
+                        },
+                        {
+                            "x": 238,
+                            "y": 197
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "Z",
+                            "image": "UpperZ.png"
+                        },
+                        {
+                            "character": "X",
+                            "image": "UpperX.png"
+                        },
+                        {
+                            "character": "C",
+                            "image": "UpperC.png"
+                        },
+                        {
+                            "character": "V",
+                            "image": "UpperV.png"
+                        },
+                        {
+                            "character": "B",
+                            "image": "UpperB.png"
+                        },
+                        {
+                            "character": "N",
+                            "image": "UpperN.png"
+                        },
+                        {
+                            "character": "M",
+                            "image": "UpperM.png"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "SPECIAL",
+            "fixedKeys": [
+                {
+                    "character": "CHANGE_LAYOUT",
+                    "point": {
+                        "x": 210,
+                        "y": 21
+                    },
+                    "image": "LayoutSpecial.png"
+                }
+            ],
+            "randomGroups": [
+                {
+                    "type": "insert",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 68
+                        },
+                        {
+                            "x": 42,
+                            "y": 68
+                        },
+                        {
+                            "x": 70,
+                            "y": 68
+                        },
+                        {
+                            "x": 98,
+                            "y": 68
+                        },
+                        {
+                            "x": 126,
+                            "y": 68
+                        },
+                        {
+                            "x": 154,
+                            "y": 68
+                        },
+                        {
+                            "x": 182,
+                            "y": 68
+                        },
+                        {
+                            "x": 210,
+                            "y": 68
+                        },
+                        {
+                            "x": 238,
+                            "y": 68
+                        },
+                        {
+                            "x": 266,
+                            "y": 68
+                        },
+                        {
+                            "x": 294,
+                            "y": 68
+                        },
+                        {
+                            "x": 322,
+                            "y": 68
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "~",
+                            "image": "Special01.png"
+                        },
+                        {
+                            "character": "!",
+                            "image": "Special02.png"
+                        },
+                        {
+                            "character": "@",
+                            "image": "Special03.png"
+                        },
+                        {
+                            "character": "#",
+                            "image": "Special04.png"
+                        },
+                        {
+                            "character": "$",
+                            "image": "Special05.png"
+                        },
+                        {
+                            "character": "%",
+                            "image": "Special06.png"
+                        },
+                        {
+                            "character": "^",
+                            "image": "Special07.png"
+                        },
+                        {
+                            "character": "&",
+                            "image": "Special08.png"
+                        },
+                        {
+                            "character": "*",
+                            "image": "Special09.png"
+                        }
+                    ]
+                },
+                {
+                    "type": "insert",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 111
+                        },
+                        {
+                            "x": 42,
+                            "y": 111
+                        },
+                        {
+                            "x": 70,
+                            "y": 111
+                        },
+                        {
+                            "x": 98,
+                            "y": 111
+                        },
+                        {
+                            "x": 126,
+                            "y": 111
+                        },
+                        {
+                            "x": 154,
+                            "y": 111
+                        },
+                        {
+                            "x": 182,
+                            "y": 111
+                        },
+                        {
+                            "x": 210,
+                            "y": 111
+                        },
+                        {
+                            "x": 238,
+                            "y": 111
+                        },
+                        {
+                            "x": 266,
+                            "y": 111
+                        },
+                        {
+                            "x": 294,
+                            "y": 111
+                        },
+                        {
+                            "x": 322,
+                            "y": 111
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "(",
+                            "image": "Special10.png"
+                        },
+                        {
+                            "character": ")",
+                            "image": "Special11.png"
+                        },
+                        {
+                            "character": "-",
+                            "image": "Special12.png"
+                        },
+                        {
+                            "character": "+",
+                            "image": "Special13.png"
+                        },
+                        {
+                            "character": "=",
+                            "image": "Special14.png"
+                        },
+                        {
+                            "character": "|",
+                            "image": "Special15.png"
+                        },
+                        {
+                            "character": "\\",
+                            "image": "Special16.png"
+                        },
+                        {
+                            "character": "[",
+                            "image": "Special17.png"
+                        },
+                        {
+                            "character": "]",
+                            "image": "Special18.png"
+                        }
+                    ]
+                },
+                {
+                    "type": "insert",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 154
+                        },
+                        {
+                            "x": 42,
+                            "y": 154
+                        },
+                        {
+                            "x": 70,
+                            "y": 154
+                        },
+                        {
+                            "x": 98,
+                            "y": 154
+                        },
+                        {
+                            "x": 126,
+                            "y": 154
+                        },
+                        {
+                            "x": 154,
+                            "y": 154
+                        },
+                        {
+                            "x": 182,
+                            "y": 154
+                        },
+                        {
+                            "x": 210,
+                            "y": 154
+                        },
+                        {
+                            "x": 238,
+                            "y": 154
+                        },
+                        {
+                            "x": 266,
+                            "y": 154
+                        },
+                        {
+                            "x": 294,
+                            "y": 154
+                        },
+                        {
+                            "x": 322,
+                            "y": 154
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": "{",
+                            "image": "Special19.png"
+                        },
+                        {
+                            "character": "}",
+                            "image": "Special20.png"
+                        },
+                        {
+                            "character": ":",
+                            "image": "Special21.png"
+                        },
+                        {
+                            "character": ";",
+                            "image": "Special22.png"
+                        },
+                        {
+                            "character": "\"",
+                            "image": "Special23.png"
+                        },
+                        {
+                            "character": "'",
+                            "image": "Special24.png"
+                        },
+                        {
+                            "character": "<",
+                            "image": "Special25.png"
+                        },
+                        {
+                            "character": ">",
+                            "image": "Special26.png"
+                        }
+                    ]
+                },
+                {
+                    "type": "insert",
+                    "points": [
+                        {
+                            "x": 14,
+                            "y": 197
+                        },
+                        {
+                            "x": 42,
+                            "y": 197
+                        },
+                        {
+                            "x": 70,
+                            "y": 197
+                        },
+                        {
+                            "x": 98,
+                            "y": 197
+                        },
+                        {
+                            "x": 126,
+                            "y": 197
+                        },
+                        {
+                            "x": 154,
+                            "y": 197
+                        },
+                        {
+                            "x": 182,
+                            "y": 197
+                        },
+                        {
+                            "x": 210,
+                            "y": 197
+                        },
+                        {
+                            "x": 238,
+                            "y": 197
+                        }
+                    ],
+                    "keys": [
+                        {
+                            "character": ",",
+                            "image": "Special27.png"
+                        },
+                        {
+                            "character": ".",
+                            "image": "Special28.png"
+                        },
+                        {
+                            "character": "?",
+                            "image": "Special29.png"
+                        },
+                        {
+                            "character": "/",
+                            "image": "Special30.png"
+                        },
+                        {
+                            "character": "_",
+                            "image": "Special31.png"
+                        },
+                        {
+                            "character": "`",
+                            "image": "Special32.png"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -11,7 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/IPAY" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/master" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -27,7 +27,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ygseol/Desktop/git file/IPAY",
+    "last_opened_file_path": "C:/Users/ygseol/Desktop/git file/workspace-sts/Acct",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -41,6 +41,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ygseol\Desktop\git file\IPAY\refs" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration" cleanupOnStartRun="true">
     <configuration>C:\Users\ygseol\AppData\Roaming\Subversion</configuration>
@@ -57,7 +62,8 @@
       <option name="presentableId" value="Default" />
       <updated>1722435799990</updated>
       <workItem from="1722435801019" duration="1687000" />
-      <workItem from="1722437553481" duration="4120000" />
+      <workItem from="1722437553481" duration="6900000" />
+      <workItem from="1722493965885" duration="73000" />
     </task>
     <servers />
   </component>

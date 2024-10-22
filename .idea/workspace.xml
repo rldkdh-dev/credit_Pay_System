@@ -26,8 +26,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
+    "ignore_missing_gitignore": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ygseol/Desktop/git file/workspace-sts/Acct",
+    "last_opened_file_path": "C:/Users/ygseol/OneDrive/바탕 화면/git file/IPAY",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -45,6 +46,14 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ygseol\Desktop\git file\IPAY\refs" />
     </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration" cleanupOnStartRun="true">
@@ -64,6 +73,7 @@
       <workItem from="1722435801019" duration="1687000" />
       <workItem from="1722437553481" duration="6900000" />
       <workItem from="1722493965885" duration="73000" />
+      <workItem from="1729638982503" duration="331000" />
     </task>
     <servers />
   </component>
